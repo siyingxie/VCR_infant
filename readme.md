@@ -33,6 +33,7 @@ IMPORTANT: To run the demo codes, a [LIBSVM] toolbox is required. Please see the
     example_rsatomodels.m
     ```
 _*Gabor filter model and the VGG-19 deep neural network trained on object categorization._
+
 ## Dependency
 The demo codes have the following dependencies. You must download (or clone) these repositories and ensure that they are on your path.
 
@@ -46,7 +47,7 @@ _* This item will be automatically downloaded to your path if it has not already
 _♰ This item needs to download and install manually. (See "Installation" for details.)_
 _☨ This item is not required for running the demo codes._
 
-# Required customized functions
+## Required customized functions
 - averagetimepoints.m
 - averagetrials.m
 - correlatevectors.m
