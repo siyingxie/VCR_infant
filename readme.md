@@ -44,7 +44,9 @@ The demo codes have the following dependencies. You must download (or clone) the
 | MatConvNet Toolbox☨ | [https://github.com/vlfeat/matconvnet] |
 
 _* This item will be automatically downloaded to your path if it has not already been downloaded._
+
 _♰ This item needs to download and install manually. (See "Installation" for details.)_
+
 _☨ This item is not required for running the demo codes._
 
 ## Required customized functions
