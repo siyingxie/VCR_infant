@@ -3,7 +3,7 @@ This repository provides MATLAB example codes used in the study "Visual category
 
 To clone this repository to local, please use:
 ```sh
-git clone xxx
+git clone https://github.com/siyingxie/VCR_infant.git
 ```
 ## Demo codes
 IMPORTANT: To run the demo codes, a [LIBSVM] toolbox is required. Please see the "Dependency" and "Installation" sections for details. 
@@ -14,7 +14,7 @@ IMPORTANT: To run the demo codes, a [LIBSVM] toolbox is required. Please see the
     ```
 - Decode object categories in time and frequency (runtime: ~ 5 min) 
     ```sh
-    example_decodingintimefrex.m
+    example_decodingtimefrequency.m
     ```
 - Time generalization analysis (runtime: ~ 1 min) 
     ```sh
@@ -38,7 +38,7 @@ The demo codes have the following dependencies. You must download (or clone) the
 
 | Resource/Software | Source/Identifier |
 | ------ | ------ |
-| Example data* | [https://osf.io/xxx] |
+| Example data* | [https://osf.io/ruxfg] |
 | LIBSVM toolbox♰ | [https://github.com/cjlin1/libsvm; RRID: SCR_010243] |
 | MatConvNet Toolbox☨ | [https://github.com/vlfeat/matconvnet] |
 
@@ -92,7 +92,7 @@ Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
 ## Expected outputs 
 The outputs from the example scripts (via MATLAB's publish) are available here.
 - [exmaple_decodoingintime]
-- [example_decodingintimefrex]
+- [example_decodingtimefrequency]
 - [example_decodingtimegeneralization]
 - [example_rsatimegeneralization]
 - [example_rsatimefrequency]
@@ -106,7 +106,7 @@ This content is licensed under a BSD 3-Clause License.
    [LIBSVM.git]:  <https://github.com/cjlin1/libsvm/>
    [LIBSVM.readme]: <https://github.com/cjlin1/libsvm/blob/master/matlab/README>
    [exmaple_decodoingintime]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingintime.html>
-   [example_decodingintimefrex]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingintimefrex.html>
+   [example_decodingtimefrequency]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingtimefrequency.html>
    [example_decodingtimegeneralization]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingtimegeneralization.html>
    [example_rsatimegeneralization]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_rsatimegeneralization.html>
    [example_rsatimefrequency]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_rsatimefrequency.html>
