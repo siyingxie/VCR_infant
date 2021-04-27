@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Example : Decode object categories in time and frequency</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-26"><meta name="DC.source" content="example_decodingtimefrequency.m"><style type="text/css">
+      --><title>Example : Decode object categories in time and frequency</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-27"><meta name="DC.source" content="example_decodingtimefrequency.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -70,11 +70,11 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 clc; clear; close <span class="string">all</span>;
 <span class="comment">% Start timing</span>
 tic;
-</pre><h2 id="2">Download dataset (if necessary) and add VCR_infant/code to the MATLAB path</h2><pre class="codeinput">setup(2);
+</pre><h2 id="2">Download dataset (if necessary) and add VCR_infant/code to the MATLAB path</h2><pre class="codeinput">setup([3,4]);
 </pre><h2 id="3">Load example dataset</h2><pre class="codeinput"><span class="comment">% User input for running decoding on example infant or adult dataset.</span>
 <span class="comment">% populationString = 'infant' or populationString = 'adult';</span>
 populationString = <span class="string">'infant'</span>;
-load([<span class="string">'../data/preprocessed/exampledata_'</span>,populationString,<span class="string">'_longEpoch.mat'</span>]);
+load([<span class="string">'../data/exampledata_'</span>,populationString,<span class="string">'_longEpoch.mat'</span>]);
 
 <span class="comment">% Check timelock</span>
 timelock
@@ -221,11 +221,11 @@ convo =
         num_convolution: 19300
           num_conv_pow2: 32768
 
-</pre><h2 id="11">Define time points and frequcies of interest</h2><pre class="codeinput"><span class="comment">% Frequency of interest</span>
+</pre><h2 id="11">Define time points and frequcies of interest</h2><pre class="codeinput"><span class="comment">% Time points of interest</span>
 TOI = dsearchn(convo.times',[-200, 1000]');
 dBPowerCell = cellfun(@(x) x(:,:,TOI(1):TOI(2)), dBPowerCell,<span class="string">'UniformOutput'</span>, 0);
 
-<span class="comment">% Frequency of interest</span>
+<span class="comment">% Frequencies of interest</span>
 FOI = convo.mor_frex;
 frequencyF = length(FOI);
 </pre><h2 id="13">Decode object categories in time and frequency</h2><pre class="codeinput"><span class="comment">% Time- and frequency- resolved classification analysis</span>
@@ -338,7 +338,7 @@ runTime_minutes = toc/60
 
 runTime_minutes =
 
-    0.3902
+    0.4290
 
 </pre><h2 id="15">Plot EEG dB power after decomposition</h2><pre class="codeinput">figure(1);
 <span class="comment">% We average dB power values across channels, trials</span>
@@ -412,14 +412,14 @@ clc; clear; close all;
 tic;
 
 %% Download dataset (if necessary) and add VCR_infant/code to the MATLAB path
-setup(2);
+setup([3,4]);
 
 %% Load example dataset
 
 % User input for running decoding on example infant or adult dataset. 
 % populationString = 'infant' or populationString = 'adult';
 populationString = 'infant';
-load(['../data/preprocessed/exampledata_',populationString,'_longEpoch.mat']);
+load(['../data/exampledata_',populationString,'_longEpoch.mat']);
 
 % Check timelock
 timelock
@@ -456,11 +456,11 @@ convo
 
 %% Define time points and frequcies of interest
 
-% Frequency of interest
+% Time points of interest
 TOI = dsearchn(convo.times',[-200, 1000]');
 dBPowerCell = cellfun(@(x) x(:,:,TOI(1):TOI(2)), dBPowerCell,'UniformOutput', 0);
 
-% Frequency of interest
+% Frequencies of interest
 FOI = convo.mor_frex;
 frequencyF = length(FOI);
 %%
