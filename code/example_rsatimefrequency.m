@@ -14,7 +14,7 @@ tic;
 setup(4);
 
 %% Load example RDMs
-load('../data/rdms/exampledata_timefrex.mat', 'neuralRDMs');
+load('../data/exampledata_timefrex.mat', 'neuralRDMs');
 
 %% Check RDMs
 

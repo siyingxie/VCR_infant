@@ -14,7 +14,7 @@ tic;
 setup(3);
 
 %% Load example dataset
-load('../data/rdms/exampledata_time.mat', 'neuralRDMs');
+load('../data/exampledata_time.mat', 'neuralRDMs');
 % Check RDMs
 neuralRDMs
 %%
