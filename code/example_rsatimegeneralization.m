@@ -11,7 +11,7 @@ clc; clear; close all;
 tic;
 
 %% Download dataset (if necessary) and add VCR_infant/code to the MATLAB path
-setup(3);
+setup(5);
 
 %% Load example dataset
 load('../data/exampledata_time.mat', 'neuralRDMs');

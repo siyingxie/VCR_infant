@@ -11,7 +11,7 @@ clc; clear; close all;
 tic;
 
 %% Download dataset (if necessary) and add VCR_infant/code to the MATLAB path
-setup(1);
+setup([1,2]);
 
 %% Load example dataset
 
