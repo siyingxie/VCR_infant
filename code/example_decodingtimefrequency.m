@@ -55,11 +55,11 @@ convo
 
 %% Define time points and frequcies of interest
 
-% Frequency of interest
+% Time points of interest
 TOI = dsearchn(convo.times',[-200, 1000]');
 dBPowerCell = cellfun(@(x) x(:,:,TOI(1):TOI(2)), dBPowerCell,'UniformOutput', 0);
 
-% Frequency of interest
+% Frequencies of interest
 FOI = convo.mor_frex;
 frequencyF = length(FOI);
 %%
