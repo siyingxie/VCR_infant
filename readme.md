@@ -6,7 +6,10 @@ To clone this repository to local, please use:
 git clone https://github.com/siyingxie/VCR_infant.git
 ```
 ## Demo codes
-IMPORTANT: To run the demo codes, a [LIBSVM] toolbox is required. Please see the "Dependency" and "Installation" sections for details. 
+
+_Here are six exmaples corresponding to the six main analyses in the study._
+
+#### IMPORTANT: To run the demo codes, a [LIBSVM] toolbox is required. Please see the "Dependency" and "Installation" sections for details. 
 
 - Decode object categories in time (runtime: ~ 2 min) 
     ```sh
@@ -41,13 +44,10 @@ The demo codes have the following dependencies. You must download (or clone) the
 | ------ | ------ |
 | Example data* | [https://osf.io/ruxfg] |
 | LIBSVM toolbox♰ | [https://github.com/cjlin1/libsvm; RRID: SCR_010243] |
-| MatConvNet Toolbox☨ | [https://github.com/vlfeat/matconvnet] |
 
 _* This item will be automatically downloaded to your path if it has not already been downloaded._
 
 _♰ This item needs to be downloaded and installed manually. (See "Installation" for details.)_
-
-_☨ This item is not required for running the demo codes._
 
 ## Required customized functions
 - averagetimepoints.m
@@ -61,30 +61,30 @@ _☨ This item is not required for running the demo codes._
 
 ## Installation
 Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
-- Clone the [LIBSVM.git] repository to _/code_ directory.
+- On terminal, clone the [LIBSVM.git] repository to _/code_ directory.
     ```sh
     cd VCR_infant/code
     git clone https://github.com/cjlin1/libsvm.git
     ```
 - If you are on Unix systems, you will need to compile the toolbox. Please rely on the steps in [LIBSVM.readme]
 
-    ##### A quick example for MacOS users:
+    #### A quick example for MacOS users:
 
-    On MATLAB command windows type:
+    On MATLAB command window, type:
     ``` sh
     >> cd libsvm/matlab
     >> matlabroot % check you $MATLABROOT
     >> edit Makefile 
     ```
-    On MATLAB editor manually edit the "Makefile":
-    ```
+    On MATLAB editor, manually edit the "Makefile":
+    ```sh
     a) comment line:3 (i.e., add a # sign at the beginning of the line);
     b) uncomment line:5 (i.e., delete the # sign at the beginning of the line);
     c) change the "MATLABDIR ?= " to your $MATLABROOT;
     d) save the "Makefile".
     ```
-    Back on MATLAB command windows type:
-    ```
+    Back on MATLAB command window, type:
+    ``` sh
     >> make % it will take a few seconds to compile 
     ```
  
