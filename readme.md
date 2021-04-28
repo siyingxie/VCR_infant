@@ -66,31 +66,29 @@ Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
     cd VCR_infant/code
     git clone https://github.com/cjlin1/libsvm.git
     ```
-- If you are on Unix systems, you need to create the corresponding mex files. Please rely on the following steps.
+- If you are on Unix systems, you will need to compile the toolbox. Please rely on the steps in [LIBSVM.readme]
 
-    > We recommend using make.m on both MATLAB and OCTAVE. Just type 'make'
-    to build 'libsvmread.mex', 'libsvmwrite.mex', 'svmtrain.mex', and
-    'svmpredict.mex'.
-    > On MATLAB or Octave:
-    >     >> make
-    
-    > If make.m does not work on MATLAB (especially for Windows), try 'mex
-    -setup' to choose a suitable compiler for mex. Make sure your compiler
-    is accessible and workable. Then type 'make' to do the installation.
-    > Example:
-    >  matlab>> mex -setup
-    
-    > MATLAB will choose the default compiler. If you have multiple compilers,
-    a list is given and you can choose one from the list. For more details,
-    please check the following page:
-    > https://www.mathworks.com/help/matlab/matlab_external/choose-c-or-c-compilers.html
-    
-    > On Unix systems, if neither make.m nor 'mex -setup' works, please use
-    Makefile and type 'make' in a command window. Note that we assume
-    your MATLAB is installed in '/usr/local/matlab'. If not, please change
-    MATLABDIR in Makefile.
-    
-    _Quoted from [LIBSVM.readme]._
+    ##### A quick example for MacOS users:
+
+    On MATLAB command windows type:
+    ``` sh
+    >> cd libsvm/matlab
+    >> matlabroot % check you $MATLABROOT
+    >> edit Makefile 
+    ```
+    On MATLAB editor manually edit the "Makefile":
+    ```
+    a) comment line:3 (i.e., add a # sign at the beginning of the line);
+    b) uncomment line:5 (i.e., delete the # sign at the beginning of the line);
+    c) change the "MATLABDIR ?= " to your $MATLABROOT;
+    d) save the "Makefile".
+    ```
+    Back on MATLAB command windows type:
+    ```
+    >> make % it will take a few seconds to compile 
+    ```
+ 
+    _For more details, please see [LIBSVM.readme]._
 
 ## Expected outputs 
 The outputs from the example scripts (via MATLAB's publish) are available here.
