@@ -45,7 +45,7 @@ The demo codes have the following dependencies. You must download (or clone) the
 
 _* This item will be automatically downloaded to your path if it has not already been downloaded._
 
-_♰ This item needs to download and install manually. (See "Installation" for details.)_
+_♰ This item needs to be downloaded and installed manually. (See "Installation" for details.)_
 
 _☨ This item is not required for running the demo codes._
 
@@ -94,7 +94,7 @@ Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
 
 ## Expected outputs 
 The outputs from the example scripts (via MATLAB's publish) are available here.
-- [exmaple_decodoingintime]
+- [example_decodoingintime]
 - [example_decodingtimefrequency]
 - [example_decodingtimegeneralization]
 - [example_rsatimegeneralization]
@@ -108,7 +108,7 @@ This content is licensed under a BSD 3-Clause License.
    [LIBSVM]: <https://www.csie.ntu.edu.tw/~cjlin/libsvm/>
    [LIBSVM.git]:  <https://github.com/cjlin1/libsvm/>
    [LIBSVM.readme]: <https://github.com/cjlin1/libsvm/blob/master/matlab/README>
-   [exmaple_decodoingintime]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingintime.html>
+   [example_decodoingintime]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingintime.html>
    [example_decodingtimefrequency]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingtimefrequency.html>
    [example_decodingtimegeneralization]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingtimegeneralization.html>
    [example_rsatimegeneralization]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_rsatimegeneralization.html>
