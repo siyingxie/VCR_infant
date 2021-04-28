@@ -1,15 +1,16 @@
 # Visual Category Representations in the Infant Brain
 This repository provides MATLAB example codes used in the study "Visual category representations in the infant brain (_"VCR_infant"_ in short)". 
 
-To clone this repository to local, please use:
+To clone this repository to local, on local terminal please type:
 ```sh
 git clone https://github.com/siyingxie/VCR_infant.git
 ```
+
 ## Demo codes
 
-_Here are six exmaples corresponding to the six main analyses in the study._
-
 #### IMPORTANT: To run the demo codes, a [LIBSVM] toolbox is required. Please see the "Dependency" and "Installation" sections for details. 
+
+Here are six exmaples corresponding to the six main analyses in the study.
 
 - Decode object categories in time (runtime: ~ 2 min) 
     ```sh
@@ -66,7 +67,7 @@ Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
     cd VCR_infant/code
     git clone https://github.com/cjlin1/libsvm.git
     ```
-- If you are on Unix systems, you will need to compile the toolbox. Please rely on the steps in [LIBSVM.readme]
+- If you are on Unix systems, you will need to compile the toolbox. Please rely on the steps in [LIBSVM.readme].
 
     #### A quick example for MacOS users:
 
@@ -88,7 +89,7 @@ Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
     >> make % it will take a few seconds to compile 
     ```
  
-    _For more details, please see [LIBSVM.readme]._
+    For more details, please see [LIBSVM.readme].
 
 ## Expected outputs 
 The outputs from the example scripts (via MATLAB's publish) are available here.
