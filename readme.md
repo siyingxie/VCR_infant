@@ -46,7 +46,7 @@ The demo codes have the following dependencies. You must download (or clone) the
 | Example data* | [https://osf.io/ruxfg] |
 | LIBSVM toolbox♰ | [https://github.com/cjlin1/libsvm; RRID: SCR_010243] |
 
-_* This item will be automatically downloaded to your path if it has not already been downloaded._
+_* This item will be automatically downloaded to your path while running the demo codes (via setup.m function) if it has not already been downloaded._
 
 _♰ This item needs to be downloaded and installed manually. (See "Installation" for details.)_
 
@@ -74,15 +74,15 @@ Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
     On MATLAB command window, type:
     ``` sh
     >> cd libsvm/matlab
-    >> matlabroot % check you $MATLABROOT
+    >> matlabroot % check your $MATLABROOT
     >> edit Makefile 
     ```
     On MATLAB editor, manually edit the "Makefile":
     ```sh
-    a) comment line:3 (i.e., add a # sign at the beginning of the line);
-    b) uncomment line:5 (i.e., delete the # sign at the beginning of the line);
-    c) change the "MATLABDIR ?= " to your $MATLABROOT;
-    d) save the "Makefile".
+    a) comment line:3 (i.e., add a # sign at the beginning of the line)
+    b) uncomment line:5 (i.e., delete the # sign at the beginning of the line)
+    c) change the "MATLABDIR ?= " to your $MATLABROOT
+    d) save the "Makefile"
     ```
     Back on MATLAB command window, type:
     ``` sh
