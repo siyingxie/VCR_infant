@@ -1,4 +1,4 @@
-%% Example: Relate category representations to computational models 
+%% Example : Relate category representations to computational models 
 % This script demonstrates the analysis relating category representations 
 % in infants or adults to computational models using RSA
 % ofthe  study "Visual category representation in the infant brain"
@@ -10,7 +10,7 @@ clc; clear; close all;
 % Start timing
 tic;
 
-%% Download dataset (if necessary) and add VCR_infant/code to the MATLAB path
+%% Download dataset (if necessary) and add VCR_infant to the MATLAB path
 setup([5,6]);
 
 %% Load example dataset
@@ -32,18 +32,20 @@ neuralRDMs.Dimension
 modelRDMs.Dimension
 %%
 
-%% Define neural RDM in time of interest
+%% Define neural RDM in time points of interest
 timescale = (-200:20:1000)';
-timeofinterest = (144:176)'; % (i.e., 95% confidence interval of peak latency)
+timeofinterest = [144,176]'; % (i.e., 95% confidence interval of peak latency)
 TOI = dsearchn(timescale,timeofinterest);
-rdmNeural = squeeze(nanmean(neuralRDMs(2).RDM(:,:,TOI),3)); % Adult RDMs
+rdmNeural = squeeze(nanmean(neuralRDMs(2).RDM(:,:,TOI(1):TOI(2)),3)); % the adult's RDMs
 
 %% Relate neural and model RDMs
 
 % Pre-allocate result matrix
 rsaResMat = nan(1,2); 
 
+% We then compared the model RDMs to infant or adult neural RDMs
 for modelI = 1:2 % Loop through models
+    % Define the model RDM
     rdmModel = modelRDMs(modelI).RDM;
     
     % Vectorize RDMs
