@@ -25,8 +25,16 @@ neuralRDMs.Dimension
 %%
 
 %% Define infants' and the adult's RDMs 
+
+% Infants' RDM is a single aggregated infant oscillatory RDM 
+% by averaging decoding accuracy matrices based on 
+% the extent of the cluster found in time-frequency decoding analysis 
 RDMInfant = neuralRDMs(1).RDM;
+
+% The adult's RDMs are time- and frequency- resolved RDMs 
+% for a single participant
 RDMAdult = neuralRDMs(2).RDM;
+%%
 
 %% Define time points of interest and frequencies of interest
 TOI = -200:20:1000;
@@ -34,6 +42,7 @@ timeT = length(TOI);
 
 FOI = logspace(log10(2),log10(30),30);
 frequencyF = length(FOI);
+%%
 
 %% Relate the RDMs in time and frequency
 
