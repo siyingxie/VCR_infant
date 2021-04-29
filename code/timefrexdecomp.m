@@ -1,14 +1,22 @@
 function [dbPowerCell, convo] = timefrexdecomp(dataCell)
-% Time-frequency decomposition
+% Time-frequency decomposition scripts
+% Parameters set for decomposition are saved in convo
+% Takes input: dataCell - a cell array, where each cell in the first column
+% contains raw trial data of each condition in a format of [trials x
+% channels x time points];
+% Give outputs: dbPowerCell - a cell array, where cells in row are data of
+% one condition and cells in column are data of one frequency steps
+% (i.e., {conditions x frequencies}). Data in each cell is a 3D array 
+% in [trials x channels x time points] format.
 
-
+%% deifne parameters
 convo = struct();
-% data information
+%%data information
 convo.condnums       = size(dataCell,1);
 convo.num_channels   = size(dataCell{1,1}, 2);
 convo.num_tps        = size(dataCell{1,1}, 3);
 convo.num_trls       = zeros(convo.condnums,1);
-% convolution parameters
+%%convolution parameters
 convo.times                 = -500:2:1498;
 convo.epoch_idx             = dsearchn(convo.times',[-500, 1498]');
 convo.srate                 = 500;
@@ -19,14 +27,16 @@ convo.frex_baseidx          = dsearchn(convo.times',[-300, -100]');
 convo.mor_cyclenum          = 5;
 convo.halfwavelet           = 1.3;
 convo.mor_time              = -(convo.halfwavelet):1/convo.srate:(convo.halfwavelet);
-% logspaced range for peak frequencies
+%logspaced range for peak frequencies
 convo.mor_frex              = logspace(log10(convo.frex_min),...
     log10(convo.frex_max),convo.frex_num);
-% width of Gaussian
+%width of Gaussian
 convo.gausian_width         = convo.mor_cyclenum ./(2*pi*convo.mor_frex);
 convo.num_wavelet           = length(convo.mor_time);
 convo.num_half_of_wavelet   = (convo.num_wavelet-1)/2;
+%%
 
+%% decomposition
 % pre-allocate data cell
 dbPowerCell = cell(convo.condnums,convo.frex_num);
 
@@ -83,10 +93,10 @@ for cond_index = 1:convo.condnums %loop through conditions
             %extract power
             temppower = abs(reshape(ifft_eeg, convo.num_tps,[])).^2; 
             
-            %decibel conversion
+            %decibel conversion 
+            %(i.e., baseline corrected power (expressed in dB) )
             epochIndex = convo.epoch_idx(1):convo.epoch_idx(2);
             bslIndex = convo.frex_baseidx(1):convo.frex_baseidx(2);
-            %baseline corrected power (expressed in dB) 
             tempdbpower = 10*log10(temppower(epochIndex,:)./mean(temppower(bslIndex,:),1)); 
             
             dbPowerCell{cond_index,frex_index}(:,chan_index,:) = single(permute(tempdbpower,[2 1])); 
@@ -96,4 +106,6 @@ for cond_index = 1:convo.condnums %loop through conditions
         end
     end
 end
+%%
+
 end
