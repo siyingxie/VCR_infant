@@ -18,7 +18,7 @@ setup(1);
 % User input for running decoding on example infant or adult dataset. 
 % populationString = 'infant' or populationString = 'adult';
 populationString = 'infant';
-load(['../data/exampledata_',populationString,'.mat']);
+load(['exampledata_',populationString,'.mat']);
 
 % Check timelock
 timelock

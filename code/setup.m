@@ -17,6 +17,6 @@ for iseed = downloadseed
     end
 end
 
-% Add VCR_infant/code to the MATLAB path (in case the user has not already done so).
-addpath(genpath(fullfile(path0,'code')));
+% Add VCR_infant the MATLAB path (in case the user has not already done so).
+addpath(genpath(path0));
 end
