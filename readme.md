@@ -49,6 +49,37 @@ _* This item will be automatically downloaded to your path while running the dem
 
 _♰ This item needs to be downloaded and installed manually. (See "Installation" for details.)_
 
+## Installation
+Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
+- On terminal, clone the [LIBSVM.git] repository to _/code_ directory.
+    ```sh
+    cd VCR_infant/code
+    git clone https://github.com/cjlin1/libsvm.git
+    ```
+- If you are on Unix systems, you will need to compile the toolbox. Please rely on the steps in [LIBSVM.readme].
+    <details><summary>A quick walk-through:</summary>
+    <p>   
+
+    - On MATLAB command window, type:
+    ``` sh
+    >> cd libsvm/matlab
+    >> matlabroot % check your $MATLABROOT
+    >> edit Makefile 
+    ```
+    - On MATLAB editor, manually edit the "Makefile":
+    ```sh
+    a) In line:3, change the "MATLABDIR ?= " to your $MATLABROOT 
+    b) save the "Makefile"
+    ```
+    - Back on MATLAB command window, type:
+    ``` sh
+    >> make % it will take a few seconds to compile 
+    ```
+    _For more details, please see [LIBSVM.readme]._
+
+    </p>
+    </details>
+
 ## Required customized functions
 These customized functions are provided in the repository. 
 
@@ -60,39 +91,6 @@ These customized functions are provided in the repository.
 - setup.m
 - timefrexdecomp.m
 - vectorizerdm.m
-
-## Installation
-Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
-- On terminal, clone the [LIBSVM.git] repository to _/code_ directory.
-    ```sh
-    cd VCR_infant/code
-    git clone https://github.com/cjlin1/libsvm.git
-    ```
-- If you are on Unix systems, you will need to compile the toolbox. Please rely on the steps in [LIBSVM.readme].
-    <details><summary>**A quick example for MacOS users:**</summary>
-    <p>   
-
-    - On MATLAB command window, type:
-    ``` sh
-    >> cd libsvm/matlab
-    >> matlabroot % check your $MATLABROOT
-    >> edit Makefile 
-    ```
-    - On MATLAB editor, manually edit the "Makefile":
-    ```sh
-    a) comment line:3 (i.e., add a # sign at the beginning of the line)
-    b) uncomment line:5 (i.e., delete the # sign at the beginning of the line)
-    c) change the "MATLABDIR ?= " to your $MATLABROOT
-    d) save the "Makefile"
-    ```
-    - Back on MATLAB command window, type:
-    ``` sh
-    >> make % it will take a few seconds to compile 
-    ```
-    For more details, please see [LIBSVM.readme].
-
-    </p>
-    </details>
 
 ## Expected outputs 
 The expected outputs from the example scripts (via MATLAB's publish) are available here.
