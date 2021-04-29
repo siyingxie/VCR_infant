@@ -1,7 +1,7 @@
 %% Example: Relate category representations in infants and adults
 % This script demonstrates the analysis relating category
 % representations of infants and adults in time using RSA 
-% for study "Visual category representation of infant brain"
+% for the study "Visual category representation in the infant brain"
 
 %% Initialize
 
@@ -19,7 +19,7 @@ load('../data/exampledata_time.mat', 'neuralRDMs');
 neuralRDMs
 %%
 
-%% Define infant's and adult's RDMs 
+%% Define infants' and adults' RDMs 
 RDMInfant = neuralRDMs(1).RDM;
 RDMadult = neuralRDMs(2).RDM;
 %%

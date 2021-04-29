@@ -1,6 +1,6 @@
 %% Example : Decode object categories in time
 % This script demonstrates the time-resolved multivariate analysis
-% of the example EEG dataset of study "Visual category
+% of the example EEG dataset for the study "Visual category
 % representation in the infant brain"
 
 %% Initialize
@@ -58,8 +58,8 @@ dataCell
 % NOTE: Randomization is used within averagetrials.m so results might
 % differ between computations.
 
-% We repeat the trainning & testing procedure "permutationX" times average
-% the accuracies of all repetetions to get the mean decoding accuracy.
+% We repeat the training & testing procedure "permutationX" times average
+% the accuracies of all repetitions to get the mean decoding accuracy.
 permutationX = 10;
 % Theoretically, the more repetitions, the finer the sampling of a real
 % state of things. 100 permutations is usually enough, one can however
@@ -129,7 +129,7 @@ for permX = 1:permutationX % Loop through repetitions
     end
 end
 
-% Average the DA matrix across repetetions
+% Average the DA matrix across repetitions
 DA_mean = squeeze(nanmean(DA,1));
 
 % Display run time

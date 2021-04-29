@@ -1,7 +1,7 @@
 %% Example: Time generalization analysis
 % This script demonstrates the time-generalization analysis
-% conducted to the example EEG dataset of study "Visual category
-% representation of infant brain"
+% of the example EEG dataset for the study "Visual category
+% representation in the infant brain"
 
 %% Initialize
 
@@ -24,7 +24,7 @@ load(['../data/exampledata_',populationString,'.mat']);
 timelock
 %%
 
-%% Define the irrelavant channels (only work for infant example dataset) 
+%% Define irrelevant channels (only works for infant example dataset) 
 if strcmp(populationString, 'infant')
     flagChannels=~ismember(timelock.label,...
         {'Cz','HEOG','VEOG','TRIGGER', 'V-', 'V+Fp2'});
@@ -52,22 +52,22 @@ dataCell
 % tested on left out data from the same time point, but iteratively on
 % data from the same and all other time points.
 
-% Decoding is done pairwisely for all pairs of conditions.
+% Decoding is done pair-wise for all pairs of conditions.
 % For M conditions, you will have to do ((M*(M-1))/2 (i.e., possible
 % pair-wise condition combinations) condition-pair specific classifications.
 % The result you could get for a pairwise classification would be 0, 50 or
-% 100% correct, 50% is the chance level.
+% 100% correct, with 50% being chance level.
 
-% NOTE: randomization is used within averagetrials.m so results may
-% be different each time it is run.
+% NOTE: Randomization is used within averagetrials.m so results might
+% differ between computations.
 
-% We repeat the trainning & testing procedure "permutationX" times average
-% the accuracies of all repetetions to get the mean decoding accuracy.
+% We repeat the training & testing procedure "permutationX" times average
+% the accuracies of all repetitions to get the mean decoding accuracy.
 permutationX = 10;
-% Theoretically, the more repetetions the finer the sampling of a real
+% Theoretically, the more repetitions, the finer the sampling of a real
 % state of things. 100 permutations is usually enough, one can however
-% determine empirically for the data how much is enough.
-% Here, we use 10 as a fast running example.
+% determine empirically the number for a given dataset.
+% Here, we use 10 to speed up the example.
 
 % Object categories as conditions
 conditionM = 4;
@@ -84,22 +84,22 @@ timePoints2Average = origTempRes/resTempRes;
 DA = nan(permutationX, conditionM, conditionM, timepointT, timepointT);
 % This analysis yielded thus a size M*M decoding accuracy matrix indexed
 % in rows and columns by the conditions compared for all time point
-% combinations from -200 to +1,000ms.
+% combinations from -200ms to +1,000ms.
 
 for permX = 1:permutationX % Loop through repetitions
     
     % To increase the signal-to-noise ratio (SNR),
     % we randomly assigned raw trials into N bins of approximately
-    % equal size each and averaged them into pseudo-trials, here N is equal
-    % to 4.
+    % equal size each and averaged them into pseudo-trials. In this example, N =
+    % 4.
     pseudoTrialN = 4;
     pseudoData = averagetrials(dataCell, pseudoTrialN);
     
-    % Additional whitening data procedure
-    % One can do decoding on the EEG data directly as the data comes out
-    % of a standard preprocessing.
+    % Additional whitening data procedure:
+    % One can do decoding on the EEG data directly as the data come out
+    % of a standard preprocessing pipeline.
     % However, some additional preprocessing is beneficial for
-    % multivariate analysis. It relates to the noise normalization.
+    % multivariate analyses. It relates to the multivariate noise normalization.
     % For more details, please see Guggenmos, M., Sterzer, P., & Cichy, R. M.
     % Neuroimage, 173, 434-447. (2018).
     pseudoData = cvmvnn(pseudoData,1:3);
@@ -112,7 +112,7 @@ for permX = 1:permutationX % Loop through repetitions
                 % Implement leave-one-pseudo-trial-out cross validated
                 % classification approach.
                 
-                % We trained the SVM classifier to pairwise decode any
+                % We trained the SVM classifier to pair-wise decode any
                 % two conditions using three of the four pseudo-trials
                 % for training at time point A
                 training_data = ...

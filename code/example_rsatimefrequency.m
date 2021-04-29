@@ -1,7 +1,7 @@
 %% Example: Relate oscillation-based category representations in infants and adults
 % This script demonstrates the RSA analysis relating category
 % representations of infants and adults in time and frequency 
-% for project "Visual category representation of infant brain"
+% for the study "Visual category representation in the infant brain"
 
 %% Initialize
 
@@ -24,7 +24,7 @@ neuralRDMs.Content
 neuralRDMs.Dimension
 %%
 
-%% Define infant's and adult's RDMs 
+%% Define infants' and adults' RDMs 
 RDMInfant = neuralRDMs(1).RDM;
 RDMadult = neuralRDMs(2).RDM;
 
@@ -67,7 +67,7 @@ xlabel('Time (ms)'); ylabel('Frequency (Hz)');
 CH = colorbar('eastoutside');
 CH.Label.String = "Spearman's R";
 title("Time and frequency Spearman's R matrix");
-% Adjust figrue position and size
+% Adjust figure position and size
 rectFig = get(gcf,'position');
 width=600; height=300;
 set(gcf,'position',[rectFig(1),rectFig(2),width,height], 'color', 'white');
