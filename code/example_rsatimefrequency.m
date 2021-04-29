@@ -1,4 +1,4 @@
-%% Example: Relate oscillation-based category representations in infants and adults
+%% Example : Relate oscillation-based category representations in infants and adults
 % This script demonstrates the RSA analysis relating category
 % representations of infants and adults in time and frequency 
 % for the study "Visual category representation in the infant brain"
@@ -10,7 +10,7 @@ clc; clear; close all;
 % Start timing
 tic;
 
-%% Download dataset (if necessary) and add VCR_infant/code to the MATLAB path
+%% Download dataset (if necessary) and add VCR_infant to the MATLAB path
 setup(7);
 
 %% Load example RDMs
@@ -24,11 +24,11 @@ neuralRDMs.Content
 neuralRDMs.Dimension
 %%
 
-%% Define infants' and adults' RDMs 
+%% Define infants' and the adult's RDMs 
 RDMInfant = neuralRDMs(1).RDM;
-RDMadult = neuralRDMs(2).RDM;
+RDMAdult = neuralRDMs(2).RDM;
 
-%% Define time of interest and frequency of interest
+%% Define time points of interest and frequencies of interest
 TOI = -200:20:1000;
 timeT = length(TOI);
 
@@ -42,15 +42,17 @@ rsaResMat = nan(frequencyF,timeT);
 
 % Vectorize RDMs
 vectInfant = vectorizerdm(RDMInfant);
-for frexAdult = 1:frequencyF % Loop through frequency points
+
+for frexAdult = 1:frequencyF % Loop through frequencies
     for timeAdult = 1:timeT % Loop through time points
         % Vectorize RDMs
-        vectAdult = vectorizerdm(squeeze(RDMadult(:,:,timeAdult,frexAdult)));
+        vectAdult = vectorizerdm(squeeze(RDMAdult(:,:,timeAdult,frexAdult)));
         
         % Correlation
         rsaResMat(frexAdult,timeAdult) = correlatevectors(vectInfant,vectAdult);
     end
 end
+
 % Display run time
 disp("RSA done.")
 runTime_minutes = toc/60
