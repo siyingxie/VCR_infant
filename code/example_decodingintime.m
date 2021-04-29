@@ -1,7 +1,7 @@
 %% Example : Decode object categories in time
 % This script demonstrates the time-resolved multivariate analysis
-% conducted to the example EEG dataset of study "Visual category
-% representation of infant brain"
+% of the example EEG dataset of study "Visual category
+% representation in the infant brain"
 
 %% Initialize
 
@@ -24,7 +24,7 @@ load(['../data/exampledata_',populationString,'.mat']);
 timelock
 %%
 
-%% Define the irrelavant channels (only work for infant example dataset) 
+%% Define irrelevant channels (only works for infant example dataset) 
 if strcmp(populationString, 'infant')
     flagChannels=~ismember(timelock.label,...
         {'Cz','HEOG','VEOG','TRIGGER', 'V-', 'V+Fp2'});
@@ -50,21 +50,21 @@ dataCell
 % For M conditions, you will have to do ((M*(M-1))/2 (i.e., possible
 % pair-wise condition combinations) condition-pair specific classifications.
 % The result you could get for a pairwise classification would be 0, 50 or
-% 100% correct, 50% is the chance level.
-% This analysis yielded thus a size M*M decoding accuracy matrix indexed
+% 100% correc with 50% being the chance level.
+% This analysis yields a M*M decoding accuracy matrix indexed
 % in rows and columns by the conditions compared for all time point
-% combinations from -200 to +1,000ms.
+% combinations from -200ms to +1,000ms.
 
-% NOTE: randomization is used within averagetrials.m so results may
-% be different each time it is run.
+% NOTE: Randomization is used within averagetrials.m so results might
+% differ between computations.
 
 % We repeat the trainning & testing procedure "permutationX" times average
 % the accuracies of all repetetions to get the mean decoding accuracy.
 permutationX = 10;
-% Theoretically, the more repetetions the finer the sampling of a real
+% Theoretically, the more repetitions, the finer the sampling of a real
 % state of things. 100 permutations is usually enough, one can however
-% determine empirically for the data how much is enough.
-% Here, we use 10 as a fast running example.
+% determine empirically the number for a given dataset.
+% Here, we use 10 to speed up the example.
 
 % Object categories as conditions
 conditionM = 4;
@@ -78,17 +78,17 @@ DA = nan(permutationX, conditionM, conditionM, timepointT);
 for permX = 1:permutationX % Loop through repetitions
     
     % To increase the signal-to-noise ratio (SNR),
-    % we randomly assigned raw trials into N bins of approximately
-    % equal size each and averaged them into pseudo-trials, here N is equal
-    % to 4.
+    % we randomly assign raw trials into N bins of approximately
+    % equal size and average them into pseudo-trials. In this example, N =
+    % 4.
     pseudoTrialN = 4;
     pseudoData = averagetrials(dataCell, pseudoTrialN);
     
-    % Additional whitening data procedure
-    % One can do decoding on the EEG data directly as the data comes out
-    % of a standard preprocessing.
+    % Additional whitening data procedure:
+    % One can do decoding on the EEG data directly as the data come out
+    % of a standard preprocessing pipeline.
     % However, some additional preprocessing is beneficial for
-    % multivariate analysis. It relates to the noise normalization.
+    % multivariate analyses. It relates to the multivariate noise normalization.
     % For more details, please see Guggenmos, M., Sterzer, P., & Cichy, R. M.
     % Neuroimage, 173, 434-447. (2018).
     pseudoData = cvmvnn(pseudoData,1:3);
@@ -100,7 +100,7 @@ for permX = 1:permutationX % Loop through repetitions
                 % Implement leave-one-pseudo-trial-out cross validated 
                 % classification approach.
                 
-                % We trained the SVM classifier to pairwise decode any 
+                % We trained the SVM classifier to perform pair-wise decoding on any 
                 % two conditions using three of the four pseudo-trials 
                 % for training.
                 training_data = ...
@@ -141,7 +141,7 @@ runTime_minutes = toc/60
 
 % For each time point, we get a decoding accuracy matrix of size 4 × 4,
 % with rows and columns indexed by the conditions classified.
-% The matrix is symmetric across the diagonal, with the diagonal undefined.
+% The matrix is symmetric across the diagonal, with the diagonal itself being undefined.
 % This procedure yielded one decoding matrix for every time point.
 timeidx = dsearchn((-200:2:1000)', 200);
 DA_mean_matrix = squeeze(DA_mean(:,:,timeidx));
@@ -164,10 +164,10 @@ height=300;
 set(gcf,'position',[rectFig(1),rectFig(2),width,height], 'color', 'white');
 %%
 
-%% Plot decoidng time course
+%% Plot decoding time course
 
-% We average the lower triangular part of the decoding matrix resulted in 
-% grand average decoding accuracy (i.e., decoding accuracies across repetetions) 
+% We average the lower triangular part of the decoding matrix, resulting in 
+% grand average decoding accuracy (i.e., decoding accuracies across repetitions) 
 % as a measure of how well category is discriminated by visual representations 
 % at a particular time point. 
 timeCourse = squeeze(nanmean(nanmean(DA_mean,1),2));
