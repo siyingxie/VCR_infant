@@ -10,7 +10,7 @@ git clone https://github.com/siyingxie/VCR_infant.git
 
 #### IMPORTANT: To run the demo codes, a [LIBSVM] toolbox is required. Please see the "Dependency" and "Installation" sections for details. 
 
-Here are six exmaples corresponding to the six main analyses in the study.
+Here are six examples corresponding to the six main analyses in the study.
 
 - Decode object categories in time (runtime: ~ 2 min) 
     ```sh
@@ -36,10 +36,10 @@ Here are six exmaples corresponding to the six main analyses in the study.
     ```sh
     example_rsatomodels.m
     ```
-_*Gabor filter model and the VGG-19 deep neural network trained on object categorization._
+_*Gabor filter model and VGG-19 deep neural network trained on object categorization_
 
 ## Dependency
-The demo codes have the following dependencies. You must download (or clone) these repositories and ensure that they are on your path.
+The demo codes have the dependencies described below. You must download (or clone) these repositories and ensure that they are on your Matlab path.
 
 | Resource/Software | Source/Identifier |
 | ------ | ------ |
@@ -51,6 +51,8 @@ _* This item will be automatically downloaded to your path while running the dem
 _♰ This item needs to be downloaded and installed manually. (See "Installation" for details.)_
 
 ## Required customized functions
+These customized functions are provided in the repository. 
+
 - averagetimepoints.m
 - averagetrials.m
 - correlatevectors.m
@@ -92,8 +94,8 @@ Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
     For more details, please see [LIBSVM.readme].
 
 ## Expected outputs 
-The outputs from the example scripts (via MATLAB's publish) are available here.
-- [example_decodoingintime]
+The expected outputs from the example scripts (via MATLAB's publish) are available here.
+- [example_decodingintime]
 - [example_decodingtimefrequency]
 - [example_decodingtimegeneralization]
 - [example_rsatimegeneralization]
@@ -103,11 +105,11 @@ The outputs from the example scripts (via MATLAB's publish) are available here.
 ## Licenses
 This content is licensed under a BSD 3-Clause License.
 
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format it nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+[//]: # (These are reference links used in the body of this note and they get stripped out when the markdown processor does its job. There is no need to format it nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
    [LIBSVM]: <https://www.csie.ntu.edu.tw/~cjlin/libsvm/>
    [LIBSVM.git]:  <https://github.com/cjlin1/libsvm/>
    [LIBSVM.readme]: <https://github.com/cjlin1/libsvm/blob/master/matlab/README>
-   [example_decodoingintime]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingintime.html>
+   [example_decodingintime]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingintime.html>
    [example_decodingtimefrequency]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingtimefrequency.html>
    [example_decodingtimegeneralization]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_decodingtimegeneralization.html>
    [example_rsatimegeneralization]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_rsatimegeneralization.html>
