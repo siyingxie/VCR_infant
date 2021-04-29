@@ -1,7 +1,7 @@
 %% Example : Relate category representations to computational models 
 % This script demonstrates the analysis relating category representations 
 % in infants or adults to computational models using RSA
-% ofthe  study "Visual category representation in the infant brain"
+% of the  study "Visual category representation in the infant brain"
 
 %% Initialize
 
