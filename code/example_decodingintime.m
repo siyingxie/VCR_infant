@@ -10,22 +10,22 @@ clc; clear; close all;
 % Start timing
 tic;
 
-%% Download dataset (if necessary) and add VCR_infant/code to the MATLAB path
+%% Download dataset (if necessary) and add VCR_infant to the MATLAB path
 setup([1,2]);
 
 %% Load example dataset
 
 % User input for running decoding on example infant or adult dataset. 
-% populationString = 'infant' or populationString = 'adult';
-populationString = 'infant';
-load(['exampledata_',populationString,'.mat']);
+% datasetstr = 'infant' or datasetstr = 'adult';
+datasetstr = 'infant';
+load(['exampledata_',datasetstr,'.mat']);
 
 % Check timelock
 timelock
 %%
 
 %% Define irrelevant channels (only works for infant example dataset) 
-if strcmp(populationString, 'infant')
+if strcmp(datasetstr, 'infant')
     flagChannels=~ismember(timelock.label,...
         {'Cz','HEOG','VEOG','TRIGGER', 'V-', 'V+Fp2'});
 else
