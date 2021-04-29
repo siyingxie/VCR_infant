@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Example : Decode object categories in time and frequency</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-27"><meta name="DC.source" content="example_decodingtimefrequency.m"><style type="text/css">
+      --><title>Example : Decode object categories in time and frequency</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-29"><meta name="DC.source" content="example_decodingtimefrequency.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,15 +66,19 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Example : Decode object categories in time and frequency</h1><!--introduction--><p>This script demonstrates time- and frequency-resolved multivariate analysis conducted to the example EEG dataset of study "Visual category representation of infant brain"</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialize</a></li><li><a href="#2">Download dataset (if necessary) and add VCR_infant/code to the MATLAB path</a></li><li><a href="#3">Load example dataset</a></li><li><a href="#5">Define the irrelavant channels (only work for infant example dataset)</a></li><li><a href="#7">Sort trials into four category conditions</a></li><li><a href="#9">Time-frequency decomposition</a></li><li><a href="#11">Define time points and frequcies of interest</a></li><li><a href="#13">Decode object categories in time and frequency</a></li><li><a href="#15">Plot EEG dB power after decomposition</a></li><li><a href="#17">Plot decoding matrix at (100ms, 2Hz)</a></li><li><a href="#19">Plot time-frequency decoding matrix</a></li></ul></div><h2 id="1">Initialize</h2><pre class="codeinput"><span class="comment">% Clean command window, workspace and figure windows</span>
+  </style></head><body><div class="content"><h1>Example : Decode object categories in time and frequency</h1><!--introduction--><p>This script demonstrates time- and frequency-resolved multivariate analysis of the example EEG dataset for the study "Visual category representation in the infant brain"</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialize</a></li><li><a href="#2">Download dataset (if necessary) and add VCR_infant to the MATLAB path</a></li><li><a href="#3">Load example dataset</a></li><li><a href="#5">Define irrelevant channels (only works for infant example dataset)</a></li><li><a href="#7">Sort trials into four category conditions</a></li><li><a href="#9">Time-frequency decomposition</a></li><li><a href="#11">Define time points and frequencies of interest</a></li><li><a href="#13">Decode object categories in time and frequency</a></li><li><a href="#15">Plot EEG dB power after decomposition</a></li><li><a href="#17">Plot decoding matrix at (100ms, 2Hz)</a></li><li><a href="#19">Plot time-frequency decoding matrix</a></li></ul></div><h2 id="1">Initialize</h2><pre class="codeinput"><span class="comment">% Clean command window, workspace and figure windows</span>
 clc; clear; close <span class="string">all</span>;
 <span class="comment">% Start timing</span>
 tic;
-</pre><h2 id="2">Download dataset (if necessary) and add VCR_infant/code to the MATLAB path</h2><pre class="codeinput">setup([3,4]);
+</pre><h2 id="2">Download dataset (if necessary) and add VCR_infant to the MATLAB path</h2><pre class="codeinput">setup([3,4]);
+</pre><pre class="codeoutput">Downloading exampledata_infant_longEpoch.mat (please be patient).
+Downloading is done!
+Downloading exampledata_adult_longEpoch.mat (please be patient).
+Downloading is done!
 </pre><h2 id="3">Load example dataset</h2><pre class="codeinput"><span class="comment">% User input for running decoding on example infant or adult dataset.</span>
-<span class="comment">% populationString = 'infant' or populationString = 'adult';</span>
-populationString = <span class="string">'infant'</span>;
-load([<span class="string">'../data/exampledata_'</span>,populationString,<span class="string">'_longEpoch.mat'</span>]);
+<span class="comment">% datasetstr = 'infant' or datasetstr = 'adult';</span>
+datasetstr = <span class="string">'infant'</span>;
+load([<span class="string">'exampledata_'</span>,datasetstr,<span class="string">'_longEpoch.mat'</span>]);
 
 <span class="comment">% Check timelock</span>
 timelock
@@ -89,7 +93,7 @@ timelock =
        dimord: 'rpt_chan_time'
         label: {30&times;1 cell}
 
-</pre><h2 id="5">Define the irrelavant channels (only work for infant example dataset)</h2><pre class="codeinput"><span class="keyword">if</span> strcmp(populationString, <span class="string">'infant'</span>)
+</pre><h2 id="5">Define irrelevant channels (only works for infant example dataset)</h2><pre class="codeinput"><span class="keyword">if</span> strcmp(datasetstr, <span class="string">'infant'</span>)
     flagChannels=~ismember(timelock.label,<span class="keyword">...</span>
         {<span class="string">'Cz'</span>,<span class="string">'HEOG'</span>,<span class="string">'VEOG'</span>,<span class="string">'TRIGGER'</span>, <span class="string">'V-'</span>, <span class="string">'V+Fp2'</span>});
 <span class="keyword">else</span>
@@ -221,7 +225,7 @@ convo =
         num_convolution: 19300
           num_conv_pow2: 32768
 
-</pre><h2 id="11">Define time points and frequcies of interest</h2><pre class="codeinput"><span class="comment">% Time points of interest</span>
+</pre><h2 id="11">Define time points and frequencies of interest</h2><pre class="codeinput"><span class="comment">% Time points of interest</span>
 TOI = dsearchn(convo.times',[-200, 1000]');
 dBPowerCell = cellfun(@(x) x(:,:,TOI(1):TOI(2)), dBPowerCell,<span class="string">'UniformOutput'</span>, 0);
 
@@ -229,11 +233,11 @@ dBPowerCell = cellfun(@(x) x(:,:,TOI(1):TOI(2)), dBPowerCell,<span class="string
 FOI = convo.mor_frex;
 frequencyF = length(FOI);
 </pre><h2 id="13">Decode object categories in time and frequency</h2><pre class="codeinput"><span class="comment">% Time- and frequency- resolved classification analysis</span>
-<span class="comment">% The procedure was equivalent to the time-resolved classification analysis</span>
+<span class="comment">% The procedure is equivalent to the time-resolved classification analysis</span>
 <span class="comment">% (see example_decodingintime.m) with the only difference that</span>
-<span class="comment">% classification was conducted on power value patterns instead of</span>
+<span class="comment">% classification is conducted on power value patterns instead of</span>
 <span class="comment">% raw activation value patterns.</span>
-<span class="comment">% The analysis was conducted separately for each frequency bin separately.</span>
+<span class="comment">% The analysis is conducted for each frequency bin separately.</span>
 
 <span class="comment">% Pre-allocate cell array</span>
 DA_frexCell = cell(frequencyF,1);
@@ -252,38 +256,38 @@ DA_frexCell = cell(frequencyF,1);
     [dataCell, timepointT] = averagetimepoints(dataCell, timePoints2Average);
     <span class="comment">% timepointT: Time points of EEG epoch (from -200ms to +1000ms) in 20ms-steps</span>
 
-    <span class="comment">% Decoding is done pairwisely for all pairs of conditions.</span>
+    <span class="comment">% Decoding is done pair-wise for all pairs of conditions.</span>
     <span class="comment">% For M conditions, you will have to do ((M*(M-1))/2 (i.e., possible</span>
     <span class="comment">% pair-wise condition combinations) condition-pair specific classifications.</span>
     <span class="comment">% The result you could get for a pairwise classification would be 0, 50 or</span>
-    <span class="comment">% 100% correct, 50% is the chance level.</span>
+    <span class="comment">% 100% correct with 50% being chance level.</span>
 
-    <span class="comment">% NOTE: randomization is used within averagetrials.m so results may</span>
-    <span class="comment">% be different each time it is run.</span>
+    <span class="comment">% NOTE: Randomization is used within averagetrials.m so results might</span>
+    <span class="comment">% differ between computations.</span>
 
-    <span class="comment">% We repeat the trainning &amp; testing procedure "permutationX" times average</span>
-    <span class="comment">% the accuracies of all repetetions to get the mean decoding accuracy.</span>
+    <span class="comment">% We repeat the training &amp; testing procedure "permutationX" times average</span>
+    <span class="comment">% the accuracies of all repetitions to get the mean decoding accuracy.</span>
     permutationX = 10;
-    <span class="comment">% Theoretically, the more repetetions the finer the sampling of a real</span>
+    <span class="comment">% Theoretically, the more repetitions, the finer the sampling of a real</span>
     <span class="comment">% state of things. 100 permutations is usually enough, one can however</span>
-    <span class="comment">% determine empirically for the data how much is enough.</span>
-    <span class="comment">% Here, we use 10 as a fast running example.</span>
+    <span class="comment">% determine empirically the number for a given dataset.</span>
+    <span class="comment">% Here, we use 10 to speed up the example.</span>
 
     <span class="comment">% Object categories as conditions</span>
     conditionM = 4;
 
     <span class="comment">% Pre-allocate result matrix</span>
     DA = nan(permutationX, conditionM, conditionM, timepointT);
-    <span class="comment">% This analysis yielded thus a size M*M decoding accuracy matrix indexed</span>
+    <span class="comment">% This analysis yields a M*M decoding accuracy matrix indexed</span>
     <span class="comment">% in rows and columns by the conditions compared for all time point</span>
-    <span class="comment">% combinations from -200 to +1,000ms.</span>
+    <span class="comment">% combinations from -200ms to +1,000ms.</span>
 
     <span class="keyword">for</span> permX = 1:permutationX <span class="comment">% Loop through repetitions</span>
 
         <span class="comment">% To increase the signal-to-noise ratio (SNR),</span>
         <span class="comment">% we randomly assigned raw trials into N bins of approximately</span>
-        <span class="comment">% equal size each and averaged them into pseudo-trials, here N is equal</span>
-        <span class="comment">% to 4.</span>
+        <span class="comment">% equal size each and averaged them into pseudo-trials.</span>
+        <span class="comment">% In this example, N = 4.</span>
         pseudoTrialN = 4;
         pseudoData = averagetrials(dataCell, pseudoTrialN);
 
@@ -294,9 +298,9 @@ DA_frexCell = cell(frequencyF,1);
                     <span class="comment">% Implement leave-one-pseudo-trial-out cross validated</span>
                     <span class="comment">% classification approach.</span>
 
-                    <span class="comment">% We trained the SVM classifier to pairwise decode any</span>
+                    <span class="comment">% We trained the SVM classifier to perform pair-wise decoding on any</span>
                     <span class="comment">% two conditions using three of the four pseudo-trials</span>
-                    <span class="comment">% for training at time point A</span>
+                    <span class="comment">% for training at time point A.</span>
                     training_data = <span class="keyword">...</span>
                         double([squeeze(pseudoData(condA, 1:end - 1, :, timeT)); <span class="keyword">...</span>
                         squeeze(pseudoData(condB, 1:end - 1, :, timeT))]);
@@ -324,7 +328,7 @@ DA_frexCell = cell(frequencyF,1);
         <span class="keyword">end</span>
     <span class="keyword">end</span>
 
-    <span class="comment">% Average the DA matrix across repetetions</span>
+    <span class="comment">% Average the DA matrix across repetitions</span>
     DA_frexCell{frexF,1} = nanmean(DA,1);
 <span class="keyword">end</span>
 
@@ -338,13 +342,13 @@ runTime_minutes = toc/60
 
 runTime_minutes =
 
-    0.4290
+    2.6663
 
-</pre><h2 id="15">Plot EEG dB power after decomposition</h2><pre class="codeinput">figure(1);
-<span class="comment">% We average dB power values across channels, trials</span>
+</pre><h2 id="15">Plot EEG dB power after decomposition</h2><pre class="codeinput"><span class="comment">% We average dB power values across channels, trials</span>
 meandBPowerCell = cellfun(@(x) mean(mean(x,1),2),dBPowerCell,<span class="string">'UniformOutput'</span>,0);
 meandBPowerMat = cell2mat(meandBPowerCell);
 
+figure(1);
 imagesc(-200:2:1000,1:30,squeeze(nanmean(meandBPowerMat,1)));
 set(gca,<span class="string">'YTick'</span>,[1,6,11,16,21,26,30], <span class="keyword">...</span>
     <span class="string">'YTickLabel'</span>, round(FOI([1,6,11,16,21,26,30]),2));
@@ -361,14 +365,14 @@ set(gcf,<span class="string">'position'</span>,[rectFig(1),rectFig(2),width,heig
 </pre><img vspace="5" hspace="5" src="example_decodingtimefrequency_01.png" alt=""> <h2 id="17">Plot decoding matrix at (100ms, 2Hz)</h2><pre class="codeinput"><span class="comment">% For each time-frequency combination (e.g., tx = 100ms; fy = 2Hz),</span>
 <span class="comment">% we get a decoding accuracy matrix of size 4 &times; 4, with rows and columns</span>
 <span class="comment">% indexed by the conditions classified.</span>
-<span class="comment">% The matrix is symmetric across the diagonal, with the diagonal undefined.</span>
+<span class="comment">% The matrix is symmetric across the diagonal, with the diagonal itself being undefined.</span>
 <span class="comment">% This procedure yielded one decoding matrix for every time point.</span>
-figure(2);
-tx = dsearchn([-200:20:1000]', 100);
+tx = dsearchn((-200:20:1000)', 100);
 fy = dsearchn(FOI', 2);
 DA_mean_matrix = squeeze(DA_timefrex(fy,:,:,tx));
 DecodingMatrix = triu(DA_mean_matrix.',1) + tril(DA_mean_matrix);
 
+figure(2);
 imagesc(1:4,1:4,DecodingMatrix);
 set(gca, <span class="string">'xtick'</span>,1:4, <span class="string">'xticklabel'</span>,{<span class="string">'toy'</span>,<span class="string">'body'</span>,<span class="string">'house'</span>,<span class="string">'face'</span>},<span class="keyword">...</span>
     <span class="string">'ytick'</span>,1:4, <span class="string">'yticklabel'</span>,{<span class="string">'toy'</span>,<span class="string">'body'</span>,<span class="string">'house'</span>,<span class="string">'face'</span>});
@@ -401,8 +405,8 @@ set(gcf,<span class="string">'position'</span>,[rectFig(1),rectFig(2),width,heig
 ##### SOURCE BEGIN #####
 %% Example : Decode object categories in time and frequency
 % This script demonstrates time- and frequency-resolved multivariate analysis
-% conducted to the example EEG dataset of study "Visual category
-% representation of infant brain"
+% of the example EEG dataset for the study "Visual category
+% representation in the infant brain"
 
 %% Initialize
 
@@ -411,22 +415,22 @@ clc; clear; close all;
 % Start timing
 tic;
 
-%% Download dataset (if necessary) and add VCR_infant/code to the MATLAB path
+%% Download dataset (if necessary) and add VCR_infant to the MATLAB path
 setup([3,4]);
 
 %% Load example dataset
 
 % User input for running decoding on example infant or adult dataset. 
-% populationString = 'infant' or populationString = 'adult';
-populationString = 'infant';
-load(['../data/exampledata_',populationString,'_longEpoch.mat']);
+% datasetstr = 'infant' or datasetstr = 'adult';
+datasetstr = 'infant';
+load(['exampledata_',datasetstr,'_longEpoch.mat']);
 
 % Check timelock
 timelock
 %%
 
-%% Define the irrelavant channels (only work for infant example dataset) 
-if strcmp(populationString, 'infant')
+%% Define irrelevant channels (only works for infant example dataset) 
+if strcmp(datasetstr, 'infant')
     flagChannels=~ismember(timelock.label,...
         {'Cz','HEOG','VEOG','TRIGGER', 'V-', 'V+Fp2'});
 else
@@ -454,7 +458,7 @@ dBPowerCell
 convo
 %%
 
-%% Define time points and frequcies of interest
+%% Define time points and frequencies of interest
 
 % Time points of interest
 TOI = dsearchn(convo.times',[-200, 1000]');
@@ -468,11 +472,11 @@ frequencyF = length(FOI);
 %% Decode object categories in time and frequency
 
 % Time- and frequency- resolved classification analysis
-% The procedure was equivalent to the time-resolved classification analysis
+% The procedure is equivalent to the time-resolved classification analysis
 % (see example_decodingintime.m) with the only difference that
-% classification was conducted on power value patterns instead of 
+% classification is conducted on power value patterns instead of 
 % raw activation value patterns. 
-% The analysis was conducted separately for each frequency bin separately. 
+% The analysis is conducted for each frequency bin separately. 
 
 % Pre-allocate cell array
 DA_frexCell = cell(frequencyF,1);
@@ -491,38 +495,38 @@ for frexF = 1:frequencyF %Loop through frequencies
     [dataCell, timepointT] = averagetimepoints(dataCell, timePoints2Average);
     % timepointT: Time points of EEG epoch (from -200ms to +1000ms) in 20ms-steps
     
-    % Decoding is done pairwisely for all pairs of conditions.
+    % Decoding is done pair-wise for all pairs of conditions.
     % For M conditions, you will have to do ((M*(M-1))/2 (i.e., possible
     % pair-wise condition combinations) condition-pair specific classifications.
     % The result you could get for a pairwise classification would be 0, 50 or
-    % 100% correct, 50% is the chance level.
+    % 100% correct with 50% being chance level.
     
-    % NOTE: randomization is used within averagetrials.m so results may
-    % be different each time it is run.
+    % NOTE: Randomization is used within averagetrials.m so results might
+    % differ between computations.
 
-    % We repeat the trainning & testing procedure "permutationX" times average
-    % the accuracies of all repetetions to get the mean decoding accuracy.
+    % We repeat the training & testing procedure "permutationX" times average
+    % the accuracies of all repetitions to get the mean decoding accuracy.
     permutationX = 10;
-    % Theoretically, the more repetetions the finer the sampling of a real
+    % Theoretically, the more repetitions, the finer the sampling of a real
     % state of things. 100 permutations is usually enough, one can however
-    % determine empirically for the data how much is enough.
-    % Here, we use 10 as a fast running example.
+    % determine empirically the number for a given dataset.
+    % Here, we use 10 to speed up the example.
     
     % Object categories as conditions
     conditionM = 4;
     
     % Pre-allocate result matrix
     DA = nan(permutationX, conditionM, conditionM, timepointT);
-    % This analysis yielded thus a size M*M decoding accuracy matrix indexed
+    % This analysis yields a M*M decoding accuracy matrix indexed
     % in rows and columns by the conditions compared for all time point
-    % combinations from -200 to +1,000ms.
+    % combinations from -200ms to +1,000ms.
     
     for permX = 1:permutationX % Loop through repetitions
         
         % To increase the signal-to-noise ratio (SNR),
         % we randomly assigned raw trials into N bins of approximately
-        % equal size each and averaged them into pseudo-trials, here N is equal
-        % to 4.
+        % equal size each and averaged them into pseudo-trials. 
+        % In this example, N = 4.
         pseudoTrialN = 4;
         pseudoData = averagetrials(dataCell, pseudoTrialN);
         
@@ -533,9 +537,9 @@ for frexF = 1:frequencyF %Loop through frequencies
                     % Implement leave-one-pseudo-trial-out cross validated
                     % classification approach.
                     
-                    % We trained the SVM classifier to pairwise decode any
-                    % two conditions using three of the four pseudo-trials
-                    % for training at time point A
+                    % We trained the SVM classifier to perform pair-wise decoding on any 
+                    % two conditions using three of the four pseudo-trials 
+                    % for training at time point A.
                     training_data = ...
                         double([squeeze(pseudoData(condA, 1:end - 1, :, timeT)); ...
                         squeeze(pseudoData(condB, 1:end - 1, :, timeT))]);
@@ -563,7 +567,7 @@ for frexF = 1:frequencyF %Loop through frequencies
         end
     end
     
-    % Average the DA matrix across repetetions
+    % Average the DA matrix across repetitions
     DA_frexCell{frexF,1} = nanmean(DA,1);
 end
 
@@ -576,11 +580,12 @@ runTime_minutes = toc/60
 %%
 
 %% Plot EEG dB power after decomposition
-figure(1);
+
 % We average dB power values across channels, trials
 meandBPowerCell = cellfun(@(x) mean(mean(x,1),2),dBPowerCell,'UniformOutput',0);
 meandBPowerMat = cell2mat(meandBPowerCell);
 
+figure(1);
 imagesc(-200:2:1000,1:30,squeeze(nanmean(meandBPowerMat,1)));
 set(gca,'YTick',[1,6,11,16,21,26,30], ...
     'YTickLabel', round(FOI([1,6,11,16,21,26,30]),2));
@@ -602,14 +607,14 @@ set(gcf,'position',[rectFig(1),rectFig(2),width,height], 'color', 'white');
 % For each time-frequency combination (e.g., tx = 100ms; fy = 2Hz),
 % we get a decoding accuracy matrix of size 4 × 4, with rows and columns
 % indexed by the conditions classified.
-% The matrix is symmetric across the diagonal, with the diagonal undefined.
+% The matrix is symmetric across the diagonal, with the diagonal itself being undefined.
 % This procedure yielded one decoding matrix for every time point.
-figure(2);
-tx = dsearchn([-200:20:1000]', 100);
+tx = dsearchn((-200:20:1000)', 100);
 fy = dsearchn(FOI', 2);
 DA_mean_matrix = squeeze(DA_timefrex(fy,:,:,tx));
 DecodingMatrix = triu(DA_mean_matrix.',1) + tril(DA_mean_matrix);
 
+figure(2);
 imagesc(1:4,1:4,DecodingMatrix);
 set(gca, 'xtick',1:4, 'xticklabel',{'toy','body','house','face'},...
     'ytick',1:4, 'yticklabel',{'toy','body','house','face'});

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Example: Relate category representations in infants and adults</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-27"><meta name="DC.source" content="example_rsatimegeneralization.m"><style type="text/css">
+      --><title>Example : Relate category representations in infants and adults</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-29"><meta name="DC.source" content="example_rsatimegeneralization.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,14 +66,14 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Example: Relate category representations in infants and adults</h1><!--introduction--><p>This script demonstrates the analysis relating category representations of infants and adults in time using RSA for study "Visual category representation of infant brain"</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialize</a></li><li><a href="#2">Download dataset (if necessary) and add VCR_infant/code to the MATLAB path</a></li><li><a href="#3">Load example dataset</a></li><li><a href="#5">Define infant's and adult's RDMs</a></li><li><a href="#7">Relate the RDMs in time</a></li><li><a href="#9">Plot time-time Spearman's R matrix</a></li></ul></div><h2 id="1">Initialize</h2><pre class="codeinput"><span class="comment">% Clean command window, workspace and figure windows</span>
+  </style></head><body><div class="content"><h1>Example : Relate category representations in infants and adults</h1><!--introduction--><p>This script demonstrates the analysis relating category representations of infants and adults in time using RSA for the study "Visual category representation in the infant brain"</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialize</a></li><li><a href="#2">Download dataset (if necessary) and add VCR_infant to the MATLAB path</a></li><li><a href="#3">Load example dataset</a></li><li><a href="#5">Define infants' and the adult's RDMs</a></li><li><a href="#7">Relate the RDMs in time</a></li><li><a href="#9">Plot time-generalization Spearman's R matrix</a></li></ul></div><h2 id="1">Initialize</h2><pre class="codeinput"><span class="comment">% Clean command window, workspace and figure windows</span>
 clc; clear; close <span class="string">all</span>;
 <span class="comment">% Start timing</span>
 tic;
-</pre><h2 id="2">Download dataset (if necessary) and add VCR_infant/code to the MATLAB path</h2><pre class="codeinput">setup(5);
+</pre><h2 id="2">Download dataset (if necessary) and add VCR_infant to the MATLAB path</h2><pre class="codeinput">setup(5);
 </pre><pre class="codeoutput">Downloading exampledata_time.mat (please be patient).
 Downloading is done!
-</pre><h2 id="3">Load example dataset</h2><pre class="codeinput">load(<span class="string">'../data/exampledata_time.mat'</span>, <span class="string">'neuralRDMs'</span>);
+</pre><h2 id="3">Load example dataset</h2><pre class="codeinput">load(<span class="string">'exampledata_time.mat'</span>, <span class="string">'neuralRDMs'</span>);
 <span class="comment">% Check RDMs</span>
 neuralRDMs
 </pre><pre class="codeoutput">
@@ -85,18 +85,24 @@ neuralRDMs =
     Dimension
     Content
 
-</pre><h2 id="5">Define infant's and adult's RDMs</h2><pre class="codeinput">RDMInfant = neuralRDMs(1).RDM;
-RDMadult = neuralRDMs(2).RDM;
+</pre><h2 id="5">Define infants' and the adult's RDMs</h2><pre class="codeinput"><span class="comment">% Infants' RDMs are the grand-averaged RDMs across participants</span>
+RDMInfant = neuralRDMs(1).RDM;
+<span class="comment">% The adult's RDMs are for each participant separately</span>
+RDMAdult = neuralRDMs(2).RDM;
 </pre><h2 id="7">Relate the RDMs in time</h2><pre class="codeinput"><span class="comment">% Pre-allocate result matrix</span>
 rsaResMat = nan(1,61,61);
 
+<span class="comment">% We compared RDMs (i.e., calculating the Spearman&#8217;s R)</span>
+<span class="comment">% in infants (average across participants) and adults (for each participant separately)</span>
+<span class="comment">% for all time point combinations (tx, ty), assigning the values to a time-generalization</span>
+<span class="comment">% matrix indexed in rows and columns by the time in adults (tx) and infants (ty).</span>
 <span class="keyword">for</span> timeInfant = 1:61 <span class="comment">% Loop through time points</span>
     <span class="comment">% Vectorize RDMs</span>
     vectInfant = vectorizerdm(squeeze(RDMInfant(:,:,timeInfant)));
 
     <span class="keyword">for</span> timeAdult = 1:61 <span class="comment">% Loop through time points</span>
         <span class="comment">% Vectorize RDMs</span>
-        vectAdult = vectorizerdm(squeeze(RDMadult(:,:,timeAdult)));
+        vectAdult = vectorizerdm(squeeze(RDMAdult(:,:,timeAdult)));
         <span class="comment">% Correlation</span>
         rsaResMat(1,timeInfant,timeAdult) = correlatevectors(vectInfant,vectAdult);
     <span class="keyword">end</span>
@@ -110,9 +116,9 @@ runTime_minutes = toc/60
 
 runTime_minutes =
 
-    0.0467
+    0.0585
 
-</pre><h2 id="9">Plot time-time Spearman's R matrix</h2><pre class="codeinput">figure(1);
+</pre><h2 id="9">Plot time-generalization Spearman's R matrix</h2><pre class="codeinput">figure(1);
 imagesc(-200:20:1000, -200:20:1000, squeeze(rsaResMat));
 axis <span class="string">xy</span>; axis <span class="string">tight</span>; axis <span class="string">equal</span>;
 xlabel(<span class="string">'Time&#8211;Adult (ms)'</span>);
@@ -127,10 +133,10 @@ height=300;
 set(gcf,<span class="string">'position'</span>,[rectFig(1),rectFig(2),width,height], <span class="string">'color'</span>, <span class="string">'white'</span>);
 </pre><img vspace="5" hspace="5" src="example_rsatimegeneralization_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% Example: Relate category representations in infants and adults
+%% Example : Relate category representations in infants and adults
 % This script demonstrates the analysis relating category
 % representations of infants and adults in time using RSA 
-% for study "Visual category representation of infant brain"
+% for the study "Visual category representation in the infant brain"
 
 %% Initialize
 
@@ -139,18 +145,21 @@ clc; clear; close all;
 % Start timing
 tic;
 
-%% Download dataset (if necessary) and add VCR_infant/code to the MATLAB path
+%% Download dataset (if necessary) and add VCR_infant to the MATLAB path
 setup(5);
 
 %% Load example dataset
-load('../data/exampledata_time.mat', 'neuralRDMs');
+load('exampledata_time.mat', 'neuralRDMs');
 % Check RDMs
 neuralRDMs
 %%
 
-%% Define infant's and adult's RDMs 
+%% Define infants' and the adult's RDMs 
+
+% Infants' RDMs are the grand-averaged RDMs across participants
 RDMInfant = neuralRDMs(1).RDM;
-RDMadult = neuralRDMs(2).RDM;
+% The adult's RDMs are for each participant separately
+RDMAdult = neuralRDMs(2).RDM;
 %%
 
 %% Relate the RDMs in time
@@ -158,13 +167,17 @@ RDMadult = neuralRDMs(2).RDM;
 % Pre-allocate result matrix
 rsaResMat = nan(1,61,61);
 
+% We compared RDMs (i.e., calculating the Spearman’s R) 
+% in infants (average across participants) and adults (for each participant separately) 
+% for all time point combinations (tx, ty), assigning the values to a time-generalization 
+% matrix indexed in rows and columns by the time in adults (tx) and infants (ty). 
 for timeInfant = 1:61 % Loop through time points
     % Vectorize RDMs
     vectInfant = vectorizerdm(squeeze(RDMInfant(:,:,timeInfant)));
     
     for timeAdult = 1:61 % Loop through time points
         % Vectorize RDMs
-        vectAdult = vectorizerdm(squeeze(RDMadult(:,:,timeAdult)));
+        vectAdult = vectorizerdm(squeeze(RDMAdult(:,:,timeAdult)));
         % Correlation
         rsaResMat(1,timeInfant,timeAdult) = correlatevectors(vectInfant,vectAdult);
     end
@@ -176,7 +189,7 @@ disp("RSA done.")
 runTime_minutes = toc/60
 %%
 
-%% Plot time-time Spearman's R matrix 
+%% Plot time-generalization Spearman's R matrix 
 figure(1); 
 imagesc(-200:20:1000, -200:20:1000, squeeze(rsaResMat));
 axis xy; axis tight; axis equal;

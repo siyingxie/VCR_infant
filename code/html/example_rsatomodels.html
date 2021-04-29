@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Exmaple: Relate category representations to computational models</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-27"><meta name="DC.source" content="example_rsatomodels.m"><style type="text/css">
+      --><title>Example : Relate category representations to computational models</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-29"><meta name="DC.source" content="example_rsatomodels.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,15 +66,15 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Exmaple: Relate category representations to computational models</h1><!--introduction--><p>This script demonstrates the analysis relating category representations in infants or adults to computational models uisng RSA of study "Visual category representation of infant brain"</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialize</a></li><li><a href="#2">Download dataset (if necessary) and add VCR_infant/code to the MATLAB path</a></li><li><a href="#3">Load example dataset</a></li><li><a href="#4">Check RDMs</a></li><li><a href="#6">Define neural RDM in time of interest</a></li><li><a href="#7">Relate neural and model RDMs</a></li><li><a href="#9">Plot correlation result bars</a></li></ul></div><h2 id="1">Initialize</h2><pre class="codeinput"><span class="comment">% Clean command window, workspace and figure windows</span>
+  </style></head><body><div class="content"><h1>Example : Relate category representations to computational models</h1><!--introduction--><p>This script demonstrates the analysis relating category representations in infants or adults to computational models using RSA of the  study "Visual category representation in the infant brain"</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialize</a></li><li><a href="#2">Download dataset (if necessary) and add VCR_infant to the MATLAB path</a></li><li><a href="#3">Load example dataset</a></li><li><a href="#4">Check RDMs</a></li><li><a href="#6">Define neural RDM in time points of interest</a></li><li><a href="#7">Relate neural and model RDMs</a></li><li><a href="#9">Plot correlation result bars</a></li></ul></div><h2 id="1">Initialize</h2><pre class="codeinput"><span class="comment">% Clean command window, workspace and figure windows</span>
 clc; clear; close <span class="string">all</span>;
 <span class="comment">% Start timing</span>
 tic;
-</pre><h2 id="2">Download dataset (if necessary) and add VCR_infant/code to the MATLAB path</h2><pre class="codeinput">setup([5,6]);
+</pre><h2 id="2">Download dataset (if necessary) and add VCR_infant to the MATLAB path</h2><pre class="codeinput">setup([5,6]);
 </pre><pre class="codeoutput">Downloading exampledata_model.mat (please be patient).
 Downloading is done!
-</pre><h2 id="3">Load example dataset</h2><pre class="codeinput">load(<span class="string">'../data/exampledata_time.mat'</span>, <span class="string">'neuralRDMs'</span>);
-load(<span class="string">'../data/exampledata_model.mat'</span>, <span class="string">'modelRDMs'</span>);
+</pre><h2 id="3">Load example dataset</h2><pre class="codeinput">load(<span class="string">'exampledata_time.mat'</span>, <span class="string">'neuralRDMs'</span>);
+load(<span class="string">'exampledata_model.mat'</span>, <span class="string">'modelRDMs'</span>);
 </pre><h2 id="4">Check RDMs</h2><pre class="codeinput"><span class="comment">% Check Content</span>
 <span class="comment">% Neural RDM</span>
 neuralRDMs.Content
@@ -126,14 +126,16 @@ ans =
 
     'cond_cond'
 
-</pre><h2 id="6">Define neural RDM in time of interest</h2><pre class="codeinput">timescale = (-200:20:1000)';
-timeofinterest = (144:176)'; <span class="comment">% (i.e., 95% confidence interval of peak latency)</span>
+</pre><h2 id="6">Define neural RDM in time points of interest</h2><pre class="codeinput">timescale = (-200:20:1000)';
+timeofinterest = [144,176]'; <span class="comment">% (i.e., 95% confidence interval of peak latency)</span>
 TOI = dsearchn(timescale,timeofinterest);
-rdmNeural = squeeze(nanmean(neuralRDMs(2).RDM(:,:,TOI),3)); <span class="comment">% Adult RDMs</span>
+rdmNeural = squeeze(nanmean(neuralRDMs(2).RDM(:,:,TOI(1):TOI(2)),3)); <span class="comment">% the adult's RDMs</span>
 </pre><h2 id="7">Relate neural and model RDMs</h2><pre class="codeinput"><span class="comment">% Pre-allocate result matrix</span>
 rsaResMat = nan(1,2);
 
+<span class="comment">% We then compared the model RDMs to infant or adult neural RDMs</span>
 <span class="keyword">for</span> modelI = 1:2 <span class="comment">% Loop through models</span>
+    <span class="comment">% Define the model RDM</span>
     rdmModel = modelRDMs(modelI).RDM;
 
     <span class="comment">% Vectorize RDMs</span>
@@ -151,7 +153,7 @@ runTime_minutes = toc/60
 
 runTime_minutes =
 
-    0.0317
+    0.0381
 
 </pre><h2 id="9">Plot correlation result bars</h2><pre class="codeinput">figure(1);
 bar(rsaResMat);
@@ -165,10 +167,10 @@ width=600; height=300;
 set(gcf,<span class="string">'position'</span>,[rectFig(1),rectFig(2),width,height], <span class="string">'color'</span>, <span class="string">'white'</span>);
 </pre><img vspace="5" hspace="5" src="example_rsatomodels_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% Exmaple: Relate category representations to computational models 
+%% Example : Relate category representations to computational models 
 % This script demonstrates the analysis relating category representations 
-% in infants or adults to computational models uisng RSA
-% of study "Visual category representation of infant brain"
+% in infants or adults to computational models using RSA
+% of the  study "Visual category representation in the infant brain"
 
 %% Initialize
 
@@ -177,12 +179,12 @@ clc; clear; close all;
 % Start timing
 tic;
 
-%% Download dataset (if necessary) and add VCR_infant/code to the MATLAB path
+%% Download dataset (if necessary) and add VCR_infant to the MATLAB path
 setup([5,6]);
 
 %% Load example dataset
-load('../data/exampledata_time.mat', 'neuralRDMs');
-load('../data/exampledata_model.mat', 'modelRDMs');
+load('exampledata_time.mat', 'neuralRDMs');
+load('exampledata_model.mat', 'modelRDMs');
 
 %% Check RDMs
 
@@ -199,18 +201,20 @@ neuralRDMs.Dimension
 modelRDMs.Dimension
 %%
 
-%% Define neural RDM in time of interest
+%% Define neural RDM in time points of interest
 timescale = (-200:20:1000)';
-timeofinterest = (144:176)'; % (i.e., 95% confidence interval of peak latency)
+timeofinterest = [144,176]'; % (i.e., 95% confidence interval of peak latency)
 TOI = dsearchn(timescale,timeofinterest);
-rdmNeural = squeeze(nanmean(neuralRDMs(2).RDM(:,:,TOI),3)); % Adult RDMs
+rdmNeural = squeeze(nanmean(neuralRDMs(2).RDM(:,:,TOI(1):TOI(2)),3)); % the adult's RDMs
 
 %% Relate neural and model RDMs
 
 % Pre-allocate result matrix
 rsaResMat = nan(1,2); 
 
+% We then compared the model RDMs to infant or adult neural RDMs
 for modelI = 1:2 % Loop through models
+    % Define the model RDM
     rdmModel = modelRDMs(modelI).RDM;
     
     % Vectorize RDMs
