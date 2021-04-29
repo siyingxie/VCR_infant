@@ -159,7 +159,7 @@ runTime_minutes = toc/60
 % indexed by the conditions classified.
 % The matrix is symmetric across the diagonal, with the diagonal undefined.
 % This procedure yielded one decoding matrix for every time point.
-timeComb = dsearchn([-200:20:1000]', [100,200]');
+timeComb = dsearchn((-200:20:1000)', [100,200]');
 DA_mean_matrix = squeeze(DA_mean(:,:,timeComb(1),timeComb(2)));
 DecodingMatrix = triu(DA_mean_matrix.',1) + tril(DA_mean_matrix);
 
