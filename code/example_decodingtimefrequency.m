@@ -10,22 +10,22 @@ clc; clear; close all;
 % Start timing
 tic;
 
-%% Download dataset (if necessary) and add VCR_infant/code to the MATLAB path
+%% Download dataset (if necessary) and add VCR_infant to the MATLAB path
 setup([3,4]);
 
 %% Load example dataset
 
 % User input for running decoding on example infant or adult dataset. 
-% populationString = 'infant' or populationString = 'adult';
-populationString = 'infant';
-load(['exampledata_',populationString,'_longEpoch.mat']);
+% datasetstr = 'infant' or datasetstr = 'adult';
+datasetstr = 'infant';
+load(['exampledata_',datasetstr,'_longEpoch.mat']);
 
 % Check timelock
 timelock
 %%
 
 %% Define irrelevant channels (only works for infant example dataset) 
-if strcmp(populationString, 'infant')
+if strcmp(datasetstr, 'infant')
     flagChannels=~ismember(timelock.label,...
         {'Cz','HEOG','VEOG','TRIGGER', 'V-', 'V+Fp2'});
 else
@@ -120,8 +120,8 @@ for frexF = 1:frequencyF %Loop through frequencies
         
         % To increase the signal-to-noise ratio (SNR),
         % we randomly assigned raw trials into N bins of approximately
-        % equal size each and averaged them into pseudo-trials. In this example, N =
-        % 4.
+        % equal size each and averaged them into pseudo-trials. 
+        % In this example, N = 4.
         pseudoTrialN = 4;
         pseudoData = averagetrials(dataCell, pseudoTrialN);
         
@@ -175,11 +175,12 @@ runTime_minutes = toc/60
 %%
 
 %% Plot EEG dB power after decomposition
-figure(1);
+
 % We average dB power values across channels, trials
 meandBPowerCell = cellfun(@(x) mean(mean(x,1),2),dBPowerCell,'UniformOutput',0);
 meandBPowerMat = cell2mat(meandBPowerCell);
 
+figure(1);
 imagesc(-200:2:1000,1:30,squeeze(nanmean(meandBPowerMat,1)));
 set(gca,'YTick',[1,6,11,16,21,26,30], ...
     'YTickLabel', round(FOI([1,6,11,16,21,26,30]),2));
@@ -203,12 +204,12 @@ set(gcf,'position',[rectFig(1),rectFig(2),width,height], 'color', 'white');
 % indexed by the conditions classified.
 % The matrix is symmetric across the diagonal, with the diagonal itself being undefined.
 % This procedure yielded one decoding matrix for every time point.
-figure(2);
-tx = dsearchn([-200:20:1000]', 100);
+tx = dsearchn((-200:20:1000)', 100);
 fy = dsearchn(FOI', 2);
 DA_mean_matrix = squeeze(DA_timefrex(fy,:,:,tx));
 DecodingMatrix = triu(DA_mean_matrix.',1) + tril(DA_mean_matrix);
 
+figure(2);
 imagesc(1:4,1:4,DecodingMatrix);
 set(gca, 'xtick',1:4, 'xticklabel',{'toy','body','house','face'},...
     'ytick',1:4, 'yticklabel',{'toy','body','house','face'});
