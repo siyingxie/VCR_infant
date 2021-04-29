@@ -1,14 +1,13 @@
 # Visual Category Representations in the Infant Brain
 This repository provides MATLAB example codes used in the study "Visual category representations in the infant brain (_"VCR_infant"_ in short)". 
 
-To clone this repository to local, on local terminal please type:
+On terminal, clone this repository to local:
 ```sh
 git clone https://github.com/siyingxie/VCR_infant.git
 ```
 
 ## Demo codes
-
-#### IMPORTANT: To run the demo codes, a [LIBSVM] toolbox is required. Please see the "Dependency" and "Installation" sections for details. 
+**IMPORTANT: To run the demo codes, a [LIBSVM] toolbox is required. Please see the "Dependency" and "Installation" sections for details.** 
 
 Here are six examples corresponding to the six main analyses in the study.
 
@@ -46,7 +45,7 @@ The demo codes have the dependencies described below. You must download (or clon
 | Example data* | [https://osf.io/ruxfg] |
 | LIBSVM toolbox♰ | [https://github.com/cjlin1/libsvm; RRID: SCR_010243] |
 
-_* This item will be automatically downloaded to your path while running the demo codes (via setup.m function) if it has not already been downloaded._
+_* This item will be automatically downloaded to your path while running the demo codes (via ```setup.m```) if it has not already been downloaded._
 
 _♰ This item needs to be downloaded and installed manually. (See "Installation" for details.)_
 
@@ -70,28 +69,30 @@ Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
     git clone https://github.com/cjlin1/libsvm.git
     ```
 - If you are on Unix systems, you will need to compile the toolbox. Please rely on the steps in [LIBSVM.readme].
+    <details><summary>**A quick example for MacOS users:**</summary>
+    <p>   
 
-    #### A quick example for MacOS users:
-
-    On MATLAB command window, type:
+    - On MATLAB command window, type:
     ``` sh
     >> cd libsvm/matlab
     >> matlabroot % check your $MATLABROOT
     >> edit Makefile 
     ```
-    On MATLAB editor, manually edit the "Makefile":
+    - On MATLAB editor, manually edit the "Makefile":
     ```sh
     a) comment line:3 (i.e., add a # sign at the beginning of the line)
     b) uncomment line:5 (i.e., delete the # sign at the beginning of the line)
     c) change the "MATLABDIR ?= " to your $MATLABROOT
     d) save the "Makefile"
     ```
-    Back on MATLAB command window, type:
+    - Back on MATLAB command window, type:
     ``` sh
     >> make % it will take a few seconds to compile 
     ```
- 
     For more details, please see [LIBSVM.readme].
+
+    </p>
+    </details>
 
 ## Expected outputs 
 The expected outputs from the example scripts (via MATLAB's publish) are available here.
