@@ -107,7 +107,7 @@ Results for single participants:
 - [singlesubject_rsatimefrequency] (Related to Figure 4E)
 
 Model RDMs details:
-- [visualise_modelRDMs]
+- [visualise_modelRDMs] (Related to Figure 3A)
 
 [//]: # (These are reference links used in the body of this note and they get stripped out when the markdown processor does its job. There is no need to format it nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
    [LIBSVM]: <https://www.csie.ntu.edu.tw/~cjlin/libsvm/>
