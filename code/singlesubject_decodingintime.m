@@ -9,7 +9,7 @@
 clc; clear; close all;
 
 %% Download dataset (if necessary) and add VCR_infant to the MATLAB path
-setup([]);
+setup(8);
 
 %% Load result
 
