@@ -1,15 +1,15 @@
 # Visual Category Representations in the Infant Brain
 This repository provides MATLAB example codes used in the study "Visual category representations in the infant brain (_"VCR_infant"_ in short)". 
 
-On terminal, clone this repository to local:
+You can clone this repository to local using:
 ```sh
 git clone https://github.com/siyingxie/VCR_infant.git
 ```
 
-## Demo codes
-**IMPORTANT: To run the demo codes, a [LIBSVM] toolbox is required. Please see the "Dependency" and "Installation" sections for details.** 
+## Example analyses
+**IMPORTANT: To run the examples, a [LIBSVM] toolbox is required. Please see the "Dependency" and "Installation" sections for details.** 
 
-Here are six examples corresponding to the six main analyses in the study.
+Here are six examples analyses in the study.
 
 - Decode object categories in time (runtime: ~ 2 min) 
     ```sh
@@ -38,40 +38,39 @@ Here are six examples corresponding to the six main analyses in the study.
 _*Gabor filter model and VGG-19 deep neural network trained on object categorization_
 
 ## Dependency
-The demo codes have the dependencies described below. You must download (or clone) these repositories and ensure that they are on your Matlab path.
 
 | Resource/Software | Source/Identifier |
 | ------ | ------ |
 | Example data* | [https://osf.io/ruxfg] |
 | LIBSVM toolbox♰ | [https://github.com/cjlin1/libsvm; RRID: SCR_010243] |
 
-_* This item will be automatically downloaded to your path while running the demo codes (via ```setup.m```) if it has not already been downloaded._
+_* They will be automatically downloaded while running the examples (via ```setup.m```) if they have not already been downloaded._
 
-_♰ This item needs to be downloaded and installed manually. (See "Installation" for details.)_
+_♰ The toolbox needs to be downloaded and installed manually. (See "Installation" for details.)_
 
 ## Installation
-Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
-- On terminal, clone the [LIBSVM.git] repository to _/code_ directory.
+The examples require [LIBSVM] (e.g., version-3.25) toolbox, and please add the toolbox as follows:
+- To clone the [LIBSVM.git] repository to the _/code_ directory, please use:
     ```sh
     cd VCR_infant/code
     git clone https://github.com/cjlin1/libsvm.git
     ```
-- If you are on Unix systems, you will need to compile the toolbox. Please rely on the steps in [LIBSVM.readme].
+- If you are on Unix systems, you will need to compile the toolbox. Please refer to the steps in [LIBSVM.readme].
     <details><summary>A quick walk-through:</summary>
     <p>   
 
-    - On MATLAB command window, type:
+    - On MATLAB command window, please type:
     ``` sh
     >> cd libsvm/matlab
     >> matlabroot % check your $MATLABROOT
     >> edit Makefile 
     ```
-    - On MATLAB editor, manually edit the "Makefile":
+    - On MATLAB editor, please manually edit the "Makefile":
     ```sh
     a) In line:3, change the "MATLABDIR ?= " to your $MATLABROOT 
     b) save the "Makefile"
     ```
-    - Back on MATLAB command window, type:
+    - Back to the MATLAB command window, please type:
     ``` sh
     >> make % it will take a few seconds to compile 
     ```
@@ -82,7 +81,6 @@ Demo codes require [LIBSVM] (e.g., version-3.25) toolbox to run.
 
 ## Required customized functions
 These customized functions are provided in the repository. 
-
 - averagetimepoints.m
 - averagetrials.m
 - correlatevectors.m
@@ -92,17 +90,22 @@ These customized functions are provided in the repository.
 - timefrexdecomp.m
 - vectorizerdm.m
 
-## Expected outputs 
-The expected outputs from the example scripts (via MATLAB's publish) are available here.
+## Visualization
+The expected outputs from the examples:
 - [example_decodingintime]
 - [example_decodingtimefrequency]
 - [example_decodingtimegeneralization]
 - [example_rsatimegeneralization]
 - [example_rsatimefrequency]
 - [example_rsatomodels]
-
-## Licenses
-This content is licensed under a BSD 3-Clause License.
+Results for single participants:
+- [singlesubject_decodingintime]
+- [singlesubject_decodingtimegeneralization]
+- [singlesubject_decodingtimefrequency]
+- [singlesubject_rsatimegeneralization]
+- [singlesubject_rsatimefrequency]
+Model RDMs details:
+- [visualise_modelRDMs]
 
 [//]: # (These are reference links used in the body of this note and they get stripped out when the markdown processor does its job. There is no need to format it nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
    [LIBSVM]: <https://www.csie.ntu.edu.tw/~cjlin/libsvm/>
@@ -114,3 +117,17 @@ This content is licensed under a BSD 3-Clause License.
    [example_rsatimegeneralization]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_rsatimegeneralization.html>
    [example_rsatimefrequency]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_rsatimefrequency.html>
    [example_rsatomodels]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/example_rsatomodels.html>
+   [singlesubject_decodingintime]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/singlesubject_decodingintime.html>
+   [singlesubject_decodingtimegeneralization]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/singlesubject_decodingtimegeneralization.html>
+   [singlesubject_decodingtimefrequency]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/singlesubject_decodingtimefrequency.html>
+   [singlesubject_rsatimegeneralization]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/singlesubject_rsatimegeneralization.html>
+   [singlesubject_rsatimefrequency]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/singlesubject_rsatimefrequency.html>
+   [visualise_modelRDMs]: <http://htmlpreview.github.io/?https://github.com/siyingxie/VCR_infant/blob/main/code/html/visualise_modelRDMs.html>
+
+
+
+
+
+
+
+
