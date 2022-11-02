@@ -44,7 +44,7 @@ for subn=1:20
     xlim([-100, 1000]);
     xtickangle(45);
     set(gca,'XTick',timepoints(1):200:timepoints(end), ...
-        'XTickLabel', AddCommaArr(timepoints(1):200:timepoints(end)));
+        'XTickLabel', addcommaarr(timepoints(1):200:timepoints(end)));
     ylim([1,30]);
     set(gca,'YTick',[1,6,11,16,21,26,30], ...
         'YTickLabel', round(frequencies([1,6,11,16,21,26,30]),2));
