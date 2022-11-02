@@ -1,4 +1,4 @@
-% This script downloads the example dataset (if it has not already been downloaded)
+% This script downloads the example data (if it has not already been downloaded)
 % and adds VCR_infant/code to the MATLAB path.
 function setup(downloadseed)
 
@@ -9,8 +9,8 @@ addpath(genpath(path0));
 
 if ~isempty(downloadseed)
     % Download the dataset if it has not already been downloaded.
-    % (If you like, you may manually download the dataset from:
-    %    https://osf.io/ruxfg/?view_only=919a62ecab944e99a80b9a467951d2e1)
+    % (If you like, you may manually download the example dataset from:
+    %    https://osf.io/ruxfg/ to the data folder)
     load(fullfile(path0,'data', 'dataseed.mat'), 'osfURL');
     
     for iseed = downloadseed
@@ -20,6 +20,6 @@ if ~isempty(downloadseed)
             fprintf('Downloading is done!\n');
         end
     end
-    
 end
+
 end
