@@ -1,0 +1,224 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Plot single participant's time- and frequency- decoding analysis result</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-11-02"><meta name="DC.source" content="singlesubject_decodingtimefrequency.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Plot single participant's time- and frequency- decoding analysis result</h1><!--introduction--><p>This script plots the results of time- and frequency-resolved multivariate analysis of infants in the study "Visual category representation in the infant brain"</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialize</a></li><li><a href="#2">Download dataset (if necessary) and add VCR_infant to the MATLAB path</a></li><li><a href="#3">Load result</a></li><li><a href="#4">Plot result</a></li></ul></div><h2 id="1">Initialize</h2><pre class="codeinput"><span class="comment">% Clean command window, workspace and figure windows</span>
+clc; clear; close <span class="string">all</span>;
+</pre><h2 id="2">Download dataset (if necessary) and add VCR_infant to the MATLAB path</h2><pre class="codeinput">setup(10);
+</pre><h2 id="3">Load result</h2><pre class="codeinput"><span class="comment">% User input for result type</span>
+datasetstr = <span class="string">'timefrequency'</span>;
+load([<span class="string">'resultdata_'</span>,datasetstr,<span class="string">'.mat'</span>]);
+</pre><h2 id="4">Plot result</h2><pre class="codeinput">f=figure(1);
+
+<span class="keyword">for</span> parn=1:40
+
+    subplot(8,5,parn)
+
+    resdata_ = squeeze(resdata(parn,:,:));
+    [H_image]=imagesc(timepoints, frequencies, resdata_);
+
+    <span class="comment">% stimuli onset</span>
+    line([0,0], [frequencies(1)-1, frequencies(end)+1],<span class="string">'Color'</span>,<span class="keyword">...</span>
+        [0.6,0.6,0.6], <span class="string">'Linewidth'</span>, 1, <span class="string">'Linestyle'</span>, <span class="string">'-'</span>);
+
+    <span class="comment">% Set x-axis and y-axis parameters</span>
+    axis <span class="string">xy</span>;
+    set(gca,<span class="string">'FontName'</span>, <span class="string">'Arial'</span>,<span class="keyword">...</span>
+        <span class="string">'Fontweight'</span>,<span class="string">'Normal'</span>,<span class="keyword">...</span>
+        <span class="string">'Fontsize'</span>, 6,<span class="keyword">...</span>
+        <span class="string">'Linewidth'</span>,1,<span class="keyword">...</span>
+        <span class="string">'TickDir'</span>,<span class="string">'in'</span>, <span class="string">'Xcolor'</span>, <span class="string">'Black'</span>, <span class="string">'Ycolor'</span>, <span class="string">'Black'</span>);
+
+    xlim([-100, 1000]);
+    xtickangle(45);
+    set(gca,<span class="string">'XTick'</span>,timepoints(1):200:timepoints(end), <span class="keyword">...</span>
+        <span class="string">'XTickLabel'</span>, addcommaarr(timepoints(1):200:timepoints(end)));
+    ylim([1,30]);
+    set(gca,<span class="string">'YTick'</span>,[1,6,11,16,21,26,30], <span class="keyword">...</span>
+        <span class="string">'YTickLabel'</span>, round(frequencies([1,6,11,16,21,26,30]),2));
+
+    <span class="comment">% color map</span>
+    colormap(plotcolors);
+    caxis([50,75]);
+
+    <span class="keyword">if</span> ismember(parn,36:40)
+        xlabel(<span class="string">'Time(ms)'</span>,<span class="string">'Fontsize'</span>, 7, <span class="string">'Fontname'</span>, <span class="string">'Arial'</span>)
+    <span class="keyword">else</span>
+        set(gca,<span class="string">'XTickLabel'</span>,[]);
+    <span class="keyword">end</span>
+
+    <span class="keyword">if</span> mod(parn,5)==1
+        ylabel(<span class="string">'Frequency(Hz)'</span>,<span class="string">'Fontsize'</span>, 8, <span class="string">'Fontname'</span>, <span class="string">'Arial'</span>);
+    <span class="keyword">else</span>
+        set(gca,<span class="string">'YTickLabel'</span>,[]);
+    <span class="keyword">end</span>
+
+
+    title(sprintf(<span class="string">'Participant %02d'</span>, parn),<span class="string">'FontSize'</span>, 8);
+<span class="keyword">end</span>
+
+<span class="comment">% Set color bar</span>
+cbpos = [0.92 0.4 0.015 0.2];
+CBar_Handle = colorbar(<span class="string">'position'</span>,cbpos);
+set(CBar_Handle,<span class="string">'FontSize'</span>, 8,<span class="string">'Linewidth'</span>, 0.5, <span class="string">'FontName'</span>, <span class="string">'Arial'</span>,<span class="string">'Color'</span>, <span class="string">'black'</span>);
+set(get(CBar_Handle, <span class="string">'YLabel'</span>), <span class="string">'String'</span>, <span class="string">"Decoding accuracy (%)"</span>, <span class="keyword">...</span>
+    <span class="string">'FontSize'</span>, 8, <span class="string">'FontName'</span>, <span class="string">'Arial'</span>,<span class="string">'Color'</span>, <span class="string">'black'</span>);
+
+<span class="comment">% Set figure position and size</span>
+width=650;
+height=680;
+set(gcf,<span class="string">'Position'</span>,[1,1,width,height],<span class="keyword">...</span>
+    <span class="string">'Color'</span>, <span class="string">'White'</span>,<span class="string">'Renderer'</span>,<span class="string">'Painters'</span>);
+movegui(f, <span class="string">'center'</span>);
+</pre><img vspace="5" hspace="5" src="singlesubject_decodingtimefrequency_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Plot single participant's time- and frequency- decoding analysis result
+% This script plots the results of time- and frequency-resolved multivariate analysis
+% of infants in the study "Visual category representation in the infant brain"
+
+%% Initialize
+
+% Clean command window, workspace and figure windows
+clc; clear; close all;
+
+%% Download dataset (if necessary) and add VCR_infant to the MATLAB path
+setup(10);
+
+%% Load result
+
+% User input for result type
+datasetstr = 'timefrequency';
+load(['resultdata_',datasetstr,'.mat']);
+
+%% Plot result
+
+f=figure(1);
+
+for parn=1:40
+    
+    subplot(8,5,parn)
+    
+    resdata_ = squeeze(resdata(parn,:,:));
+    [H_image]=imagesc(timepoints, frequencies, resdata_);
+    
+    % stimuli onset
+    line([0,0], [frequencies(1)-1, frequencies(end)+1],'Color',...
+        [0.6,0.6,0.6], 'Linewidth', 1, 'Linestyle', '-');
+    
+    % Set x-axis and y-axis parameters
+    axis xy;
+    set(gca,'FontName', 'Arial',...
+        'Fontweight','Normal',...
+        'Fontsize', 6,...
+        'Linewidth',1,...
+        'TickDir','in', 'Xcolor', 'Black', 'Ycolor', 'Black');
+    
+    xlim([-100, 1000]);
+    xtickangle(45);
+    set(gca,'XTick',timepoints(1):200:timepoints(end), ...
+        'XTickLabel', addcommaarr(timepoints(1):200:timepoints(end)));
+    ylim([1,30]);
+    set(gca,'YTick',[1,6,11,16,21,26,30], ...
+        'YTickLabel', round(frequencies([1,6,11,16,21,26,30]),2));
+
+    % color map
+    colormap(plotcolors);
+    caxis([50,75]);
+    
+    if ismember(parn,36:40)
+        xlabel('Time(ms)','Fontsize', 7, 'Fontname', 'Arial')
+    else
+        set(gca,'XTickLabel',[]);
+    end
+    
+    if mod(parn,5)==1
+        ylabel('Frequency(Hz)','Fontsize', 8, 'Fontname', 'Arial');
+    else
+        set(gca,'YTickLabel',[]);
+    end
+    
+    
+    title(sprintf('Participant %02d', parn),'FontSize', 8);
+end
+
+% Set color bar 
+cbpos = [0.92 0.4 0.015 0.2];
+CBar_Handle = colorbar('position',cbpos);
+set(CBar_Handle,'FontSize', 8,'Linewidth', 0.5, 'FontName', 'Arial','Color', 'black');
+set(get(CBar_Handle, 'YLabel'), 'String', "Decoding accuracy (%)", ...
+    'FontSize', 8, 'FontName', 'Arial','Color', 'black');
+
+% Set figure position and size
+width=650;
+height=680;
+set(gcf,'Position',[1,1,width,height],...
+    'Color', 'White','Renderer','Painters');
+movegui(f, 'center');
+
+##### SOURCE END #####
+--></body></html>
