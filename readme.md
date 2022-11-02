@@ -98,12 +98,14 @@ The expected outputs from the examples:
 - [example_rsatimegeneralization]
 - [example_rsatimefrequency]
 - [example_rsatomodels]
+
 Results for single participants:
 - [singlesubject_decodingintime]
 - [singlesubject_decodingtimegeneralization]
 - [singlesubject_decodingtimefrequency]
 - [singlesubject_rsatimegeneralization]
 - [singlesubject_rsatimefrequency]
+
 Model RDMs details:
 - [visualise_modelRDMs]
 
