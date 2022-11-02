@@ -70,8 +70,6 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   </style></head><body><div class="content"><h1>Plot single participant's time- and frequency- RSA analysis result</h1><!--introduction--><p>This script plots the results of time- and frequency-resolved RSA analysis results of infants in the study "Visual category representation in the infant brain"</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Initialize</a></li><li><a href="#2">Download dataset (if necessary) and add VCR_infant to the MATLAB path</a></li><li><a href="#3">Load result</a></li><li><a href="#4">Plot result</a></li></ul></div><h2 id="1">Initialize</h2><pre class="codeinput"><span class="comment">% Clean command window, workspace and figure windows</span>
 clc; clear; close <span class="string">all</span>;
 </pre><h2 id="2">Download dataset (if necessary) and add VCR_infant to the MATLAB path</h2><pre class="codeinput">setup(12);
-</pre><pre class="codeoutput">Downloading resultdata_rsatimefrequency.mat (please be patient).
-Downloading is done!
 </pre><h2 id="3">Load result</h2><pre class="codeinput"><span class="comment">% User input for result type</span>
 datasetstr = <span class="string">'rsatimefrequency'</span>;
 load([<span class="string">'resultdata_'</span>,datasetstr,<span class="string">'.mat'</span>]);
@@ -99,7 +97,7 @@ load([<span class="string">'resultdata_'</span>,datasetstr,<span class="string">
     xlim([-100, 1000]);
     xtickangle(45);
     set(gca,<span class="string">'XTick'</span>,timepoints(1):200:timepoints(end), <span class="keyword">...</span>
-        <span class="string">'XTickLabel'</span>, AddCommaArr(timepoints(1):200:timepoints(end)));
+        <span class="string">'XTickLabel'</span>, addcommaarr(timepoints(1):200:timepoints(end)));
     ylim([1,30]);
     set(gca,<span class="string">'YTick'</span>,[1,6,11,16,21,26,30], <span class="keyword">...</span>
         <span class="string">'YTickLabel'</span>, round(frequencies([1,6,11,16,21,26,30]),2));
@@ -136,14 +134,7 @@ height=450;
 set(gcf,<span class="string">'Position'</span>,[1,1,width,height],<span class="keyword">...</span>
     <span class="string">'Color'</span>, <span class="string">'White'</span>,<span class="string">'Renderer'</span>,<span class="string">'Painters'</span>);
 movegui(f, <span class="string">'center'</span>);
-</pre><pre class="codeoutput error">Cannot find an exact (case-sensitive) match for 'AddCommaArr'
-
-The closest match is: addcommaarr in /home/siyingxie/VCR_infant/code/addcommaarr.m
-
-
-Error in singlesubject_rsatimefrequency (line 46)
-    set(gca,'XTick',timepoints(1):200:timepoints(end), ...
-</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="singlesubject_rsatimefrequency_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Plot single participant's time- and frequency- RSA analysis result
 % This script plots the results of time- and frequency-resolved RSA
@@ -191,7 +182,7 @@ for subn=1:20
     xlim([-100, 1000]);
     xtickangle(45);
     set(gca,'XTick',timepoints(1):200:timepoints(end), ...
-        'XTickLabel', AddCommaArr(timepoints(1):200:timepoints(end)));
+        'XTickLabel', addcommaarr(timepoints(1):200:timepoints(end)));
     ylim([1,30]);
     set(gca,'YTick',[1,6,11,16,21,26,30], ...
         'YTickLabel', round(frequencies([1,6,11,16,21,26,30]),2));
